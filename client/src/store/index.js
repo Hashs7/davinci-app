@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {createMatrix} from "../utils/API";
+import {createMatrix, setItem} from "../utils/API";
 
 Vue.use(Vuex);
 
@@ -33,16 +33,20 @@ export default new Vuex.Store({
           state[property].edit = true;
       },
       setItemValue(state, { x, y }) {
+          let type = null;
           if(state.start.edit) {
               state.start = { edit: false, x, y };
-              return;
-          }
-          if(state.end.edit) {
+              type = 'start';
+          } else if (state.end.edit) {
               state.end = { edit: false, x, y };
-              return;
+              type = 'end';
+          } else {
+              // state.matrix.nodes[y][x].walkable = !state.matrix.nodes[y][x].walkable;
+              type = 'block';
           }
-          // TODO send to server
-          state.matrix.nodes[y][x].walkable = !state.matrix.nodes[y][x].walkable;
+          setItem(type, { x, y }).then(({ data }) => {
+              state.matrix = data.matrix;
+          })
       }
   },
   actions: {

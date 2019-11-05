@@ -21,3 +21,23 @@ export const createMatrix = async (size) => {
 
     return api(options)
 };
+
+/**
+ *
+ * @returns {Promise<AxiosPromise>}
+ */
+export const setItem = async (type, position) => {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/setItem',
+        data: {
+            type,
+            position
+        }
+    };
+
+    return api(options)
+};
