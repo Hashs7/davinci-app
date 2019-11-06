@@ -10,13 +10,22 @@
         <div class="settings__prop">
             <button @click="edit('end')">Définir l'arrivée</button>
         </div>
+        <div class="settings__prop">
+            <button @click="findPath" :disabled="activeFind" >Trouver le chemin</button>
+        </div>
     </div>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+    import {notNull} from "../utils/helpers";
     export default {
         name: "Settings",
         computed: {
+            ...mapState([
+                'start',
+                'end'
+            ]),
             gridSize: {
                 get() {
                     return this.$store.state.matrixSize;
@@ -24,11 +33,17 @@
                 set(value) {
                     this.$store.commit('updateMatrixSize', value);
                 }
+            },
+            activeFind() {
+                return !(notNull(this.start.x) && notNull(this.start.y) && notNull(this.end.x) && notNull(this.end.y));
             }
         },
         methods: {
             edit(prop) {
                 this.$store.commit('editMode', prop);
+            },
+            findPath() {
+                this.$store.dispatch('findPath');
             }
         }
     }

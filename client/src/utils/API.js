@@ -41,3 +41,19 @@ export const setItem = async (type, position) => {
 
     return api(options)
 };
+
+/**
+ *
+ * @returns {Promise<AxiosPromise>}
+ */
+export const getPath = async () => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/findPath'
+    };
+
+    return api(options)
+};

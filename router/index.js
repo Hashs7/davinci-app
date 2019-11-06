@@ -14,6 +14,26 @@ exports.init = (app) => {
         });
     });
 
+    app.get('/findPath', (req, res, next) => {
+        fs.readFile('matrix.json', 'utf8', (err, data) => {
+            if (err){
+                console.error(err);
+                return
+            }
+            const { matrix, start, end } = JSON.parse(data);
+            const grid = new pf.Grid(matrix.nodes);
+
+            grid.nodes.forEach((el, i) => {
+                el.forEach((subEl, j) => {
+                    grid.setWalkableAt(j, i, matrix.nodes[i][j].walkable)
+                })
+            });
+            const finder = new pf.AStarFinder();
+            const path   = finder.findPath(start.x, start.y, end.x, end.y, grid);
+            res.status(200).json({ path });
+        });
+    });
+
     app.post('/newMatrix', (req, res, next) => {
         const {size} = req.body;
         const matrix = new pf.Grid(size, size);
@@ -55,7 +75,6 @@ exports.init = (app) => {
                 })
             });
 
-            console.log(grid.nodes);
             switch (type) {
                 case 'block':
                     grid.setWalkableAt(x, y, !matrix.nodes[y][x].walkable);
@@ -72,8 +91,6 @@ exports.init = (app) => {
                 start,
                 end,
             };
-
-            console.log(type);
 
             fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
                 res.status(201).json({

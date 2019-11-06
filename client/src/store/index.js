@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {createMatrix, setItem} from "../utils/API";
+import {createMatrix, getPath, setItem} from "../utils/API";
 
 Vue.use(Vuex);
 
@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
       matrixSize: null,
       matrix: null,
+      resolve: [],
       start: {
           edit: false,
           x: null,
@@ -47,9 +48,16 @@ export default new Vuex.Store({
           setItem(type, { x, y }).then(({ data }) => {
               state.matrix = data.matrix;
           })
+      },
+      drawPath(state, path) {
+          this.state.resolve = path;
       }
   },
   actions: {
+      async findPath({ commit }) {
+          const { data } = await getPath();
+          commit('drawPath', data.path);
+      }
   },
   modules: {
   }

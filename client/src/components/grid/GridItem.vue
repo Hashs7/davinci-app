@@ -10,10 +10,14 @@ export default {
     props: ['value', 'position', 'walkable'],
     computed: {
         type() {
-            const { start, end } = this.$store.state;
+            const { start, end, resolve } = this.$store.state;
             if(!this.walkable) return 'disable';
             if(this.position.x === start.x && this.position.y === start.y) return 'start';
             if(this.position.x === end.x && this.position.y === end.y) return 'end';
+            if(resolve.length) {
+                return resolve.filter(item => this.position.x === item[0] && this.position.y === item[1]).length
+                ? 'path' : '';
+            }
             return '';
         }
     },
@@ -38,6 +42,9 @@ export default {
     }
     &.end {
         background-color: red;
+    }
+    &.path {
+        background-color: orange;
     }
     &.disable {
         background-color: gray;
