@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000';
+// const baseURL = 'http://localhost:3000';
+const baseURL = 'https://davinci-drone-app.herokuapp.com';
 export const api = axios.create({ baseURL });
 
 /**
