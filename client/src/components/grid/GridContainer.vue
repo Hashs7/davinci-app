@@ -25,7 +25,6 @@ export default {
         },
         flatMatrix() {
             if(!this.$store.state.matrix) return [];
-            console.log('called');
             return this.$store.state.matrix.nodes.flat();
         }
     },
