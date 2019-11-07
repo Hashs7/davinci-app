@@ -36,6 +36,8 @@ export default {
     height: 80px;
     border: 2px solid black;
     box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
 
     &.start {
         background-color: green;
