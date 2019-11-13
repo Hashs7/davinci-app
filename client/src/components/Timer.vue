@@ -52,7 +52,8 @@
             },
             calcTime(dist) {
                 this.minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                this.seconds = Math.floor((dist % (1000 * 60)) / 1000);
+                const seconds = Math.floor((dist % (1000 * 60)) / 1000);
+                this.seconds = seconds > 9 ? seconds : '0' + seconds;
             }
         }
     }

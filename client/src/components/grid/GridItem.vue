@@ -1,13 +1,13 @@
 <template>
     <div class="grid-item" :class="[type]" @click="setItem">
-        <span class="value">{{ position.x }}, {{ position.y }}</span>
+        <span v-if="debug" class="value">{{ position.x }}, {{ position.y }}</span>
     </div>
 </template>
 
 <script>
 export default {
     name: "GridItem",
-    props: ['value', 'position', 'walkable'],
+    props: ['value', 'position', 'walkable', 'debug'],
     computed: {
         type() {
             const { start, end, resolve } = this.$store.state;
@@ -23,6 +23,7 @@ export default {
     },
     methods: {
         setItem() {
+            this.value
             this.$store.commit('setItemValue', this.position)
         }
     }

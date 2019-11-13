@@ -1,6 +1,11 @@
 <template>
     <div class="grid-container" :style="cssVars">
-        <GridItem v-for="(item, i) in flatMatrix" :key="i" :value="i" :position="{x: item.x, y: item.y}" :walkable="item.walkable" />
+        <GridItem v-for="(item, i) in flatMatrix"
+                  :key="i"
+                  :value="i"
+                  :debug="debug"
+                  :position="{x: item.x, y: item.y}"
+                  :walkable="item.walkable" />
     </div>
 </template>
 
@@ -11,6 +16,12 @@ export default {
     name: "GridContainer",
     components: {
         GridItem
+    },
+    props: {
+        debug: {
+            type: Boolean,
+            default: false
+        },
     },
     data() {
         return {
