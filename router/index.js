@@ -41,6 +41,7 @@ exports.init = (app) => {
             start: { x: null, y: null },
             end: { x: null, y: null },
             matrix,
+            dronePositions: [],
         });
 
         fs.writeFile('matrix.json', json, 'utf8', () => {
