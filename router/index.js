@@ -35,8 +35,8 @@ exports.init = (app) => {
     });
 
     app.post('/newMatrix', (req, res, next) => {
-        const {size} = req.body;
-        const matrix = new pf.Grid(size, size);
+        const {row,column} = req.body;
+        const matrix = new pf.Grid(column, row);
         const json = JSON.stringify({
             start: { x: null, y: null },
             end: { x: null, y: null },

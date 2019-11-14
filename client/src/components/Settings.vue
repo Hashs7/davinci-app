@@ -1,8 +1,10 @@
 <template>
     <div class="settings">
         <div class="settings__prop">
-            <label for="gridSize">Taille de la grille</label>
-            <input id="gridSize" type="number" v-model="gridSize">
+            <label for="rowSize">Nombre de ligne</label>
+            <input id="rowSize" type="number" v-model="rowSize">
+            <label for="columnSize">Nombre de colonnes</label>
+            <input id="columnSize" type="number" v-model="columnSize">
         </div>
         <div class="settings__prop">
             <button @click="edit('start')">Définir le départ</button>
@@ -27,14 +29,25 @@
                 'start',
                 'end'
             ]),
-            gridSize: {
+            rowSize: {
                 get() {
-                    return this.$store.state.matrixSize;
+                    return this.$store.state.matrixRowSize;
                 },
                 set(value) {
-                    this.$store.commit('updateMatrixSize', value);
+                    this.$store.commit('updateMatrixRowSize', value);
                 }
             },
+
+            columnSize:{
+                get() {
+                    return this.$store.state.matrixColumnSize;
+                },
+                set(value) {
+                    this.$store.commit('updateMatrixColumnSize', value);
+                }
+            },
+
+
             activeFind() {
                 return !(notNull(this.start.x) && notNull(this.start.y) && notNull(this.end.x) && notNull(this.end.y));
             }

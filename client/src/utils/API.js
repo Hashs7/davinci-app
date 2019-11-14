@@ -6,7 +6,7 @@ export const api = axios.create({ baseURL: process.env.VUE_APP_API_URL });
  *
  * @returns {Promise<AxiosPromise>}
  */
-export const createMatrix = async (size) => {
+export const createMatrix = async (row,column) => {
     const options = {
         method: 'POST',
         headers: {
@@ -14,7 +14,8 @@ export const createMatrix = async (size) => {
         },
         url: '/newMatrix',
         data: {
-            size
+            row,
+            column
         }
     };
     return api(options)
