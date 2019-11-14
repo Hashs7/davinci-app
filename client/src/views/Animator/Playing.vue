@@ -1,15 +1,17 @@
 <template>
-    <main>
-        <header>
+    <main class="l-view">
+        <header class="l-header">
             <h1>Chronomètre</h1>
         </header>
-        <div>
-            <Timer :startTime="startDate" :endTime="endDate"/>
-            <div>
-                <span>Arrêter</span>
-                <span>Pause</span>
+        <div class="l-page">
+            <div class="l-page__content">
+                <Timer :startTime="startDate" :endTime="endDate"/>
+                <div>
+                    <span>Arrêter</span>
+                    <span>Pause</span>
+                </div>
+                <router-link to="/animator/controls" class="link">Partie terminée</router-link>
             </div>
-            <router-link to="/animator/controls" class="link">Partie terminée</router-link>
         </div>
     </main>
 </template>

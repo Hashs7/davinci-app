@@ -1,20 +1,24 @@
 <template>
-    <main>
-        <header>
+    <main class="l-view">
+        <header class="l-header">
             <h1>{{ title }}</h1>
         </header>
-        <div>
-            <carousel :per-page="1" @page-change="pageChange">
-                <slide>
-                    <PlayersCount />
-                </slide>
-                <slide>
-                    <Scenario />
-                </slide>
-                <slide>
-                    <Tutorial />
-                </slide>
-            </carousel>
+        <div class="l-page">
+            <div class="l-page__content">
+
+                <carousel :per-page="1" @page-change="pageChange">
+                    <slide>
+                        <PlayersCount />
+                    </slide>
+                    <slide>
+                        <Scenario />
+                    </slide>
+                    <slide>
+                        <Tutorial />
+                    </slide>
+                </carousel>
+
+            </div>
         </div>
     </main>
 </template>

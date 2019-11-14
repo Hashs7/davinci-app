@@ -5,6 +5,7 @@
             <span class="number">:</span>
             <span class="number">{{ seconds }}</span>
         </div>
+        <div v-if="controls" class="timer__controls"></div>
         <div class="status-tag" :class="statusType">{{ statusText }}</div>
     </div>
 </template>
@@ -12,7 +13,7 @@
 <script>
     export default {
         name: "Timer",
-        props: ['startTime','endTime'] ,
+        props: ['startTime','endTime', 'controls'],
         data: () => ({
             timer:"",
             start: "",
@@ -24,8 +25,6 @@
             statusText: "",
         }),
         mounted() {
-            console.log(this.startTime);
-            console.log(this.endTime);
             this.start = new Date(this.startTime).getTime();
             this.end = new Date(this.endTime).getTime();
             // Update the count down every 1 second

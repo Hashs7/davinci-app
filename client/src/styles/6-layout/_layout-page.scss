@@ -4,4 +4,17 @@
 
 // -----------------------------------------------------------------------------
 
-.l-page {}
+.l-view {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.l-page {
+    display: flex;
+    flex-grow: 1;
+}
+
+.l-page__content {
+    margin: auto;
+}
