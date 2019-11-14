@@ -21,6 +21,7 @@ export default new Vuex.Store({
           x: null,
           y: null
       },
+      playersCount: 0
   },
   mutations: {
       

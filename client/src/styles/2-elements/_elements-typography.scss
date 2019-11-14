@@ -1,0 +1,20 @@
+/*
+ * [ elements / typography ]
+ */
+
+// -----------------------------------------------------------------------------
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: $line-height-headings;
+    font-family: $font-secondary;
+    font-weight: $weight-bold;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin-top: 0;
+}

@@ -1,0 +1,22 @@
+/*
+ * [ objects / container ]
+ */
+
+// -----------------------------------------------------------------------------
+
+.o-container {
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    @media #{$md-up} {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+
+    @media #{$xl-up} {
+        padding-right: 80px;
+        padding-left: 80px;
+    }
+}

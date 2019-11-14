@@ -1,7 +1,8 @@
 <template>
     <div class="home">
         <div>
-            <router-link to="/play" class="link">Jouer</router-link>
+            <router-link to="/animator/start" class="link">Utiliser en tant qu'animateur</router-link>
+            <router-link to="/play" class="link">Utiliser en tant qu'écran</router-link>
         </div>
         <div>
             <router-link to="/create" class="link">Créer un niveau</router-link>

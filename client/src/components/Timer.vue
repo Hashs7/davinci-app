@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div>
+    <div class="timer">
+        <div class="timer__values">
             <span class="number">{{ minutes }}</span>
             <span class="number">:</span>
             <span class="number">{{ seconds }}</span>
@@ -60,5 +60,7 @@
 </script>
 
 <style scoped>
-
+.timer__values {
+    font-size: 200px;
+}
 </style>

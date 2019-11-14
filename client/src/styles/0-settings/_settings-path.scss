@@ -1,0 +1,16 @@
+/*
+ * [ settings / path ]
+ */
+
+// -----------------------------------------------------------------------------
+
+$images-path: '../../images/';
+$fonts-path:  '../../fonts/';
+
+@function image($file) {
+    @return url($images-path + $file);
+}
+
+@function font($file) {
+    @return url($fonts-path + $file);
+}

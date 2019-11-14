@@ -1,0 +1,24 @@
+/*
+ * [ settings / medias ]
+ */
+
+// -----------------------------------------------------------------------------
+
+$landscape: 'screen and (orientation: landscape)';
+$portrait: 'screen and (orientation: portrait)';
+
+$sm-up: 'screen and (min-width: 576px)';
+$md-up: 'screen and (min-width: 768px)';
+$lg-up: 'screen and (min-width: 992px)';
+$lg-up-middly: 'screen and (min-width: 1079px)';
+$xl-up: 'screen and (min-width: 1440px)';
+
+$sm-down: 'screen and (max-width: 575px)';
+$md-down: 'screen and (max-width: 767px)';
+$lg-down: 'screen and (max-width: 991px)';
+$lg-down-middly: 'screen and (max-width: 1079px)';
+$xl-down: 'screen and (max-width: 1439px)';
+
+$sm-to-md: 'screen and (min-width: 576px) and (max-width: 767px)';
+$md-to-lg: 'screen and (min-width: 768px) and (max-width: 991px)';
+$lg-to-xl: 'screen and (min-width: 992px) and (max-width: 1439px)';

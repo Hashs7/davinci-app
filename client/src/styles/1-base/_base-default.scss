@@ -1,0 +1,43 @@
+/*
+ * [ base / default ]
+ */
+
+// -----------------------------------------------------------------------------
+
+*,
+:before,
+:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+}
+
+html,
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body {
+    line-height: $line-height-base;
+    font-family: $font-primary;
+    font-weight: $weight-base;
+    background-color: $color-body;
+    color: $color-text;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    &:focus {
+        outline: none;
+    }
+}

@@ -1,0 +1,27 @@
+/*
+ * [ objects / full ]
+ */
+
+// -----------------------------------------------------------------------------
+
+.o-full {
+    width: 100vw;
+    margin-right: calc(-50vw + 50%);
+    margin-left: calc(-50vw + 50%);
+}
+
+.o-full-lg {
+    @media #{$lg-down} {
+        width: 100vw;
+        margin-right: calc(-50vw + 50%);
+        margin-left: calc(-50vw + 50%);
+    }
+}
+
+@media #{$sm-up} {
+    body.apply-fullWidth-fix .o-full {
+        width: calc(100vw - var(--scroll-bar));
+        margin-right: calc(-50vw + 50% + (var(--scroll-bar) / 2));
+        margin-left: calc(-50vw + 50% + (var(--scroll-bar) / 2));
+    }
+}
