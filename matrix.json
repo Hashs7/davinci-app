@@ -1,1 +1,275 @@
-{"matrix":{"width":2,"height":4,"nodes":[[{"x":0,"y":0,"walkable":true},{"x":1,"y":0,"walkable":true}],[{"x":0,"y":1,"walkable":true},{"x":1,"y":1,"walkable":false}],[{"x":0,"y":2,"walkable":false},{"x":1,"y":2,"walkable":true}],[{"x":0,"y":3,"walkable":true},{"x":1,"y":3,"walkable":true}]]},"start":{"x":null,"y":null},"end":{"x":null,"y":null}}
+{
+  "matrix": {
+    "width": 7,
+    "height": 7,
+    "nodes": [
+      [
+        {
+          "x": 0,
+          "y": 0,
+          "walkable": false
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "walkable": true
+        },
+        {
+          "x": 3,
+          "y": 0,
+          "walkable": true
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 0,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 0,
+          "walkable": true
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 1,
+          "walkable": false
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "walkable": true
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "walkable": true
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 1,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 1,
+          "walkable": true
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 2,
+          "walkable": true
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "walkable": false
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "walkable": false
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 2,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 2,
+          "walkable": true
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 3,
+          "walkable": true
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "walkable": true
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "walkable": true
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 3,
+          "walkable": true
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 4,
+          "walkable": true
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "walkable": true
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "walkable": true
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 4,
+          "walkable": true
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 5,
+          "walkable": true
+        },
+        {
+          "x": 1,
+          "y": 5,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 5,
+          "walkable": true
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "walkable": true
+        },
+        {
+          "x": 4,
+          "y": 5,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 5,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "walkable": true
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 6,
+          "walkable": true
+        },
+        {
+          "x": 1,
+          "y": 6,
+          "walkable": true
+        },
+        {
+          "x": 2,
+          "y": 6,
+          "walkable": true
+        },
+        {
+          "x": 3,
+          "y": 6,
+          "walkable": true
+        },
+        {
+          "x": 4,
+          "y": 6,
+          "walkable": true
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "walkable": true
+        },
+        {
+          "x": 6,
+          "y": 6,
+          "walkable": true
+        }
+      ]
+    ]
+  },
+  "start": {
+    "x": null,
+    "y": null
+  },
+  "end": {
+    "x": null,
+    "y": null
+  }
+}

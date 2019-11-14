@@ -20,7 +20,8 @@
 
 <script>
     import { mapState } from 'vuex';
-    import {notNull} from "../utils/helpers";
+    import { notNull } from "../utils/helpers";
+
     export default {
         name: "Settings",
         computed: {

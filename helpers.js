@@ -1,26 +1,27 @@
-exports.generateMatrice = (size) => {
-    let matrice = [];
-    for (let i = 1; Number(size) > i; i++) {
-        matrice.push([0])
-    }
+const constants = require('./constants');
 
-    matrice.forEach(el => {
-        for (let i = 1; Number(size) > i; i++) {
-            el.push(0)
-        }
-    });
-
-    return matrice;
-}
-
-const generateNumber = (min = 0, max = 1) => {
-    return Math.floor(Math.random() * max) + min;
+exports.getSymbolCombination = (symbolId) => {
+    const symbol = constants.SYMBOLS.find(el => el.id === Number(symbolId));
+    return symbol.combination;
 };
 
-exports.addBlocks = (matrice) => {
-    matrice[0][4] = "start";
-    const length = matrice.length - 1;
-    const pos = generateNumber(0, length);
-    matrice[length][pos] = "end";
-    return matrice;
+exports.getNewPosition = (allPositions, move) => {
+    const lastPos = allPositions.last();
+    const dronePos = allPositions;
+    switch (move) {
+        case "front":
+            lastPos.y -= 1;
+            break;
+        case "back":
+            lastPos.y += 1;
+            break;
+        case "left":
+            lastPos.x -= 1;
+            break;
+        case "right":
+            lastPos.x += 1;
+            break;
+    }
+    dronePos.push(lastPos);
+    return dronePos
 };

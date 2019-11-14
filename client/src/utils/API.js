@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000';
-export const api = axios.create({ baseURL });
+export const api = axios.create({ baseURL: process.env.VUE_APP_API_URL });
 
 /**
  *
@@ -19,7 +18,6 @@ export const createMatrix = async (row,column) => {
             column
         }
     };
-
     return api(options)
 };
 
@@ -39,7 +37,6 @@ export const setItem = async (type, position) => {
             position
         }
     };
-
     return api(options)
 };
 
@@ -55,6 +52,5 @@ export const getPath = async () => {
         },
         url: '/findPath'
     };
-
     return api(options)
 };

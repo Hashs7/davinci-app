@@ -1,6 +1,7 @@
 # Davinci App 
 
 ## Project setup
+Rename example.env and fill values
 ```
 npm install
 cd client && npm install
