@@ -20,7 +20,8 @@ export default {
     computed: {
         cssVars() {
             return {
-                '--grid-size': this.$store.state.matrixSize,
+                '--grid-row': this.$store.state.matrixRowSize,
+                '--grid-column': this.$store.state.matrixColumnSize,
             }
         },
         flatMatrix() {
@@ -36,6 +37,7 @@ export default {
 .grid-container {
     display: inline-grid;
     margin: 0 auto;
-    grid-template-columns: repeat(var(--grid-size), 80px);
+    grid-template-columns: repeat(var(--grid-column), 80px);
+    grid-template-rows: repeat(var(--grid-row), 80px);
 }
 </style>

@@ -7,6 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
       matrixSize: null,
+      matrixRowSize:1,
+      matrixColumnSize:1,
       matrix: null,
       resolve: [],
       start: {
@@ -21,13 +23,25 @@ export default new Vuex.Store({
       },
   },
   mutations: {
-      updateMatrixSize(state, value) {
-          state.matrixSize = value;
-          createMatrix(value)
+      
+      updateMatrixRowSize(state,value){
+        state.matrixRowSize = value;
+          createMatrix(value, state.matrixColumnSize)
               .then(({ data }) => {
                   state.matrix = data.matrix
               });
       },
+
+      updateMatrixColumnSize(state,value){
+          state.matrixColumnSize = value;
+          createMatrix(state.matrixRowSize, value)
+              .then(({ data }) => {
+                  state.matrix = data.matrix
+              });
+      },
+
+
+
       editMode(state, property) {
           state.start.edit = false;
           state.end.edit = false;
