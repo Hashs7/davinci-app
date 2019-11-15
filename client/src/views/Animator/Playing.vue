@@ -5,11 +5,7 @@
         </header>
         <div class="l-page">
             <div class="l-page__content">
-                <Timer :startTime="startDate" :endTime="endDate"/>
-                <div>
-                    <span>Arrêter</span>
-                    <span>Pause</span>
-                </div>
+                <Timer controls />
                 <router-link to="/animator/controls" class="link">Partie terminée</router-link>
             </div>
         </div>

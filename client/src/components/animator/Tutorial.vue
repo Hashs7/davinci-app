@@ -1,5 +1,7 @@
 <template>
-    <router-link to="/animator/playing" class="link">Démarrer le jeu</router-link>
+    <div class="c-slide">
+        <router-link to="/animator/playing" class="link">Démarrer le jeu</router-link>
+    </div>
 </template>
 
 <script>

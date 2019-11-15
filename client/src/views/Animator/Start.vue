@@ -6,7 +6,7 @@
         <div class="l-page">
             <div class="l-page__content">
 
-                <carousel :per-page="1" @page-change="pageChange">
+                <carousel :per-page="1" @page-change="pageChange" :navigationEnabled="true">
                     <slide>
                         <PlayersCount />
                     </slide>
@@ -53,6 +53,14 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .VueCarousel-navigation-next, .VueCarousel-navigation-prev {
+        transform: translateY(-50%) !important;
+    }
+    .VueCarousel-navigation--disabled {
+        opacity: 0 !important;
+    }
+    .VueCarousel-slide {
+        display: flex;
+    }
 </style>

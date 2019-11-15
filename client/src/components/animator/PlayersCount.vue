@@ -1,5 +1,5 @@
 <template>
-    <div class="players-count">
+    <div class="c-slide players-count">
         <span class="players-count__btn" @click="updatePlayers(-1)">-</span>
         <span class="players-count__current">{{ playersCount }}</span>
         <span class="players-count__btn" @click="updatePlayers(1)">+</span>
@@ -17,6 +17,7 @@
         methods: {
             updatePlayers(value) {
                 if (this.playersCount === 0 && value < 0) return;
+                if (this.playersCount === 10 && value > 0) return;
                 this.$store.state.playersCount += value;
             }
         }
@@ -26,8 +27,12 @@
 <style scoped>
     .players-count {
         font-size: 180px;
+        display: flex;
+        justify-content: center;
     }
     .players-count__btn {
+        width: 120px;
+        display: block;
         cursor: pointer;
         text-align: center;
     }

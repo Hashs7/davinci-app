@@ -10,8 +10,8 @@ module.exports = {
     },
     css: {
         loaderOptions: {
-            sass: {
-                data: `@import "~@/styles/0-settings/_settings-color.scss";`,
+            scss: {
+                prependData: `@import "~@/styles/0-settings/_settings-color.scss";`,
                 // font: `@import "~@/style/fonts.scss";`,
             },
         }
