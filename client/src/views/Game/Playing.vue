@@ -1,8 +1,8 @@
 <template>
-  <div class="v-play">
-      <GridContainer />
-      <Timer :startTime="startDate" :endTime="endDate"/>
-  </div>
+    <div class="v-play">
+        <GridContainer/>
+        <Timer ref="timer" :startTime="startTime" :endTime="endTime"/>
+    </div>
 </template>
 
 <script>
@@ -15,15 +15,26 @@
             GridContainer,
             Timer,
         },
-        computed: {
-            startDate() {
-                // Add 5 minutes
-                return new Date();
+        data: () => ({
+            startTime: null,
+            endTime: null,
+        }),
+        sockets: {
+            timerStart: function (data) {
+                // console.log("start", data);
+                this.startTime = new Date(data.startTime);
+                this.endTime   = new Date(data.endTime);
+                console.log("startTime", this.startTime);
+                this.$refs.timer.timerStart();
             },
-            endDate() {
-                // Add 5 minutes
-                return new Date(new Date().getTime() + (1 * 60000));
-            }
-        }
+            timerPause: function () {
+                console.log("timerPause");
+                this.$refs.timer.timerPause();
+            },
+            timerReset: function () {
+                console.log("timerReset");
+                this.$refs.timer.timerReset();
+            },
+        },
     }
 </script>

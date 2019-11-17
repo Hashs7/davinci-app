@@ -25,6 +25,9 @@
                     <slide>
                         <Tutorial />
                     </slide>
+                    <slide>
+                        <Tutorial />
+                    </slide>
                 </carousel>
 
             </div>

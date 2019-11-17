@@ -63,10 +63,10 @@ io.on('connection', socket => {
     /*
     ** Vue app
     */
-    socket.on('screenView', (data) => {
-        console.log('screenview', data);
-        io.emit('screenView', data)
-    });
+    socket.on('screenView', (data) => io.emit('screenView', data));
+    socket.on('timerStart', (data) => io.emit('timerStart', data));
+    socket.on('timerPause', (data) => io.emit('timerPause', data));
+    socket.on('timerReset', (data) => io.emit('timerReset', data));
 
     socket.on('disconnect', () => {
         console.log('Client disconnect');
