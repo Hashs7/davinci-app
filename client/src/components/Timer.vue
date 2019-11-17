@@ -8,7 +8,7 @@
         <div v-if="controls" class="timer__controls">
             <span v-if="isPaused" @click="timerPlay">Reprendre</span>
             <span v-else @click="timerPause">Pause</span>
-            <span>Réinitialiser</span>
+            <span @click="timerReset">Réinitialiser</span>
         </div>
         <div class="status-tag" :class="statusType">{{ statusText }}</div>
     </div>
@@ -24,13 +24,13 @@
             }
         },
         data: () => ({
-            timer:"",
+            timer: "",
             start: "",
             end: "",
             interval: null,
-            minutes:"",
-            seconds:"",
-            statusType:"",
+            minutes: "",
+            seconds: "",
+            statusType: "",
             statusText: "",
             isPaused: false,
             startTime: new Date(),
@@ -38,24 +38,24 @@
         }),
         methods: {
             timerCount(start, end) {
-                const now = new Date().getTime();
+                const now      = new Date().getTime();
                 const distance = start - now;
-                const passTime =  end - now;
+                const passTime = end - now;
 
-                if (distance < 0 && passTime < 0){
+                if (distance < 0 && passTime < 0) {
                     this.statusType = "expired";
                     this.statusText = "Temps écoulé";
                     clearInterval(this.interval);
-                } else if (distance < 0 && passTime > 0){
+                } else if (distance < 0 && passTime > 0) {
                     this.calcTime(passTime);
                     this.statusType = "running";
                     this.statusText = "En cours";
                 }
             },
             calcTime(dist) {
-                this.minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                this.minutes  = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((dist % (1000 * 60)) / 1000);
-                this.seconds = seconds > 9 ? seconds : '0' + seconds;
+                this.seconds  = seconds > 9 ? seconds : '0' + seconds;
             },
             timerPause() {
                 this.isPaused = true;
@@ -63,19 +63,24 @@
             },
             timerPlay() {
                 this.isPaused = false;
-                this.startTime = new Date();
-                this.endTime = new Date(new Date().getTime() + (this.minutes * 60000) + ((this.seconds +1) * 1000));
-                this.start = new Date(this.startTime).getTime();
-                this.end = new Date(this.endTime).getTime();
+                this.start    = new Date().getTime();
+                this.end      = new Date(new Date().getTime() + (this.minutes * 60000) + ((this.seconds + 1) * 1000)).getTime();
                 this.timerCount(this.start, this.end);
                 this.interval = setInterval(() => {
                     this.timerCount(this.start, this.end);
                 }, 1000);
+            },
+            timerReset() {
+                this.isPaused = false;
+                this.minutes = 5;
+                this.seconds = 0;
+                clearInterval(this.interval);
+                this.timerPlay();
             }
         },
         mounted() {
             this.start = new Date(this.startTime).getTime();
-            this.end = new Date(this.endTime).getTime();
+            this.end   = new Date(this.endTime).getTime();
             this.timerCount(this.start, this.end);
             this.interval = setInterval(() => {
                 this.timerCount(this.start, this.end);
@@ -85,7 +90,7 @@
 </script>
 
 <style scoped>
-.timer__values {
-    font-size: 200px;
-}
+    .timer__values {
+        font-size: 200px;
+    }
 </style>

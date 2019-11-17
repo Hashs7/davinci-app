@@ -16,6 +16,15 @@
                     <slide>
                         <Tutorial />
                     </slide>
+                    <slide>
+                        <Tutorial />
+                    </slide>
+                    <slide>
+                        <Tutorial />
+                    </slide>
+                    <slide>
+                        <Tutorial />
+                    </slide>
                 </carousel>
 
             </div>
@@ -27,6 +36,7 @@
     import PlayersCount from '@/components/animator/PlayersCount';
     import Scenario from '@/components/animator/Scenario';
     import Tutorial from '@/components/animator/Tutorial';
+    import {routePath} from "../../router";
 
     export default {
         name: "Start",
@@ -40,13 +50,13 @@
         }),
         methods: {
             pageChange(index) {
-                console.log(index);
                 if(index === 0) {
                     this.title = "Joueurs"
                 } else if (index === 1) {
                     this.title = "Scénario"
                 } else {
-                    this.title = "Tutoriel"
+                    this.title = "Tutoriel";
+                    this.$socket.emit("screenView", { path: routePath.SCREEN_TUTO + (index - 1) })
                 }
             }
         }

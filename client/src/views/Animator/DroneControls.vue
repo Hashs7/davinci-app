@@ -11,12 +11,12 @@
                             <span>Lancer la séquence</span>
                         </div>
                     </div>
-                    <div class="controls__btn">
+                    <div class="controls__btn" @click="stopSequence">
                         <div class="content">
                             <span class="">Arrêt</span>
                         </div>
                     </div>
-                    <div class="controls__btn">
+                    <div class="controls__btn" @click="goStartSequence">
                         <div class="content">
                             <span class="">Revenir au départ</span>
                         </div>
@@ -52,12 +52,19 @@
         methods: {
             startSequence() {
                this.showModal = false;
+                this.$socket.emit('drone_sequence-start')
+            },
+            stopSequence() {
+                this.$socket.emit('drone_stop')
+            },
+            goStartSequence() {
+                this.$socket.emit('drone_go-start')
             }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .controls-container {
         display: flex;
         justify-content: center;
@@ -67,7 +74,12 @@
         height: 176px;
         display: flex;
         margin: 0 85px;
+        user-select: none;
         background-color: #D8D8D8;
+
+        &:active {
+            background-color: #919191;
+        }
     }
     .content {
         margin: auto;

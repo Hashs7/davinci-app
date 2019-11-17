@@ -41,13 +41,12 @@ export default new Vuex.Store({
               });
       },
 
-
-
       editMode(state, property) {
           state.start.edit = false;
           state.end.edit = false;
           state[property].edit = true;
       },
+
       setItemValue(state, { x, y }) {
           let type = null;
           if(state.start.edit) {
@@ -64,6 +63,7 @@ export default new Vuex.Store({
               state.matrix = data.matrix;
           })
       },
+      
       drawPath(state, path) {
           this.state.resolve = path;
       }

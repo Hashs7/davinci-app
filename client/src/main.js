@@ -12,7 +12,7 @@ Vue.use(VueCarousel);
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'http://metinseylan.com:1992',
+    connection: process.env.VUE_APP_API_URL,
     vuex: {
         store,
         actionPrefix: 'SOCKET_',
