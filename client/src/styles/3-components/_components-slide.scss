@@ -5,5 +5,11 @@
 // -----------------------------------------------------------------------------
 
 .c-slide {
+    width: 100vw;
     margin: auto;
+}
+
+.c-slide__content {
+    display: flex;
+    flex-direction: column;
 }

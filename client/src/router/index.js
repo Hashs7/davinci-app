@@ -45,42 +45,42 @@ const routes = [
     {
         path: routePath.SCREEN_WAITING,
         name: 'ScreenWaiting',
-        component: () => import(/* webpackChunkName: "ScreenWaiting" */ '../views/Game/Waiting')
+        component: () => import(/* webpackChunkName: "ScreenWaiting" */ '../views/Screen/Waiting')
     },
     {
         path: routePath.SCREEN_TUTO_1,
         name: 'ScreenTutorial-1',
-        component: () => import(/* webpackChunkName: "ScreenTutorial-1" */ '../views/Game/tuto/Tutorial-1')
+        component: () => import(/* webpackChunkName: "ScreenTutorial-1" */ '../views/Screen/tuto/Tutorial-1')
     },
     {
         path: routePath.SCREEN_TUTO_2,
         name: 'ScreenTutorial-2',
-        component: () => import(/* webpackChunkName: "ScreenTutorial-2" */ '../views/Game/tuto/Tutorial-2')
+        component: () => import(/* webpackChunkName: "ScreenTutorial-2" */ '../views/Screen/tuto/Tutorial-2')
     },
     {
         path: routePath.SCREEN_TUTO_3,
         name: 'ScreenTutorial-3',
-        component: () => import(/* webpackChunkName: "ScreenTutorial-3" */ '../views/Game/tuto/Tutorial-3')
+        component: () => import(/* webpackChunkName: "ScreenTutorial-3" */ '../views/Screen/tuto/Tutorial-3')
     },
     {
         path: routePath.SCREEN_TUTO_4,
         name: 'ScreenTutorial-4',
-        component: () => import(/* webpackChunkName: "ScreenTutorial-4" */ '../views/Game/tuto/Tutorial-4')
+        component: () => import(/* webpackChunkName: "ScreenTutorial-4" */ '../views/Screen/tuto/Tutorial-4')
     },
     {
         path: routePath.SCREEN_TUTO_5,
         name: 'ScreenTutorial-5',
-        component: () => import(/* webpackChunkName: "ScreenTutorial-5" */ '../views/Game/tuto/Tutorial-5')
+        component: () => import(/* webpackChunkName: "ScreenTutorial-5" */ '../views/Screen/tuto/Tutorial-5')
     },
     {
         path: routePath.SCREEN_PLAY,
         name: 'ScreenPlay',
-        component: () => import(/* webpackChunkName: "ScreenPlay" */ '../views/Game/Playing.vue')
+        component: () => import(/* webpackChunkName: "ScreenPlay" */ '../views/Screen/Playing.vue')
     },
     {
         path: routePath.SCREEN_FINAL,
         name: 'ScreenFinal',
-        component: () => import(/* webpackChunkName: "ScreenFinal" */ '../views/Game/Final.vue')
+        component: () => import(/* webpackChunkName: "ScreenFinal" */ '../views/Screen/Final.vue')
     },
     {
         path: routePath.CREATE,

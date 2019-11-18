@@ -47,7 +47,9 @@
             statusText: "",
             isStarted: false,
             isPaused: false,
-        }),
+            time: 0,
+            elapsed: '0.0',
+    }),
         methods: {
             timerCount(start, end) {
                 const now      = new Date().getTime();
@@ -70,7 +72,6 @@
                 this.seconds  = seconds > 9 ? seconds : '0' + seconds;
             },
             timerPause() {
-                console.log("Paused");
                 if (this.controls) {
                     this.$socket.emit("timerPause");
                 }
@@ -88,6 +89,8 @@
                 this.timerPlay();
             },
             timerPlay() {
+                setTimeout(this.instance, 100);
+
                 this.isPaused = false;
                 this.start = new Date().getTime();
                 this.end   = new Date(this.start + (this.minutes * 60000) + ((this.seconds + 1) * 1000)).getTime();
@@ -101,9 +104,20 @@
                     this.timerCount(this.start, this.end);
                 }, 1000);
             },
-            timerReset() {
-                console.log("Reset");
+            instance() {
+                this.time += 100;
 
+                this.elapsed = Math.floor(this.time / 100) / 10;
+                if(Math.round(this.elapsed) == this.elapsed) {
+                    this.elapsed += '.0';
+                }
+
+                document.title = this.elapsed;
+
+                const diff = (new Date().getTime() - this.start) - this.time;
+                window.setTimeout(this.instance, (100 - diff));
+            },
+            timerReset() {
                 if (this.controls) {
                     this.$socket.emit("timerReset");
                 }
@@ -118,6 +132,9 @@
             if (this.controls) {
                 this.$socket.emit("screenView", {path: routePath.SCREEN_PLAY})
             }
+        },
+        beforeDestroy() {
+            clearInterval(this.interval);
         }
     }
 </script>

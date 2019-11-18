@@ -1,0 +1,15 @@
+/*
+ * [ views / page ]
+ */
+
+// -----------------------------------------------------------------------------
+.l-view {
+    height: 100vh;
+    color: white;
+}
+
+.l-view--animator {
+    background-size: cover;
+    background-position: center;
+    background-image: url('~@/assets/background.jpg');
+}

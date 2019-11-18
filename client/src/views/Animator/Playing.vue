@@ -1,5 +1,5 @@
 <template>
-    <main class="l-view">
+    <main class="l-view l-view--animator">
         <header class="l-header">
             <h1>Chronomètre</h1>
         </header>

@@ -21,18 +21,14 @@
         }),
         sockets: {
             timerStart: function (data) {
-                // console.log("start", data);
                 this.startTime = new Date(data.startTime);
                 this.endTime   = new Date(data.endTime);
-                console.log("startTime", this.startTime);
                 this.$refs.timer.timerStart();
             },
             timerPause: function () {
-                console.log("timerPause");
                 this.$refs.timer.timerPause();
             },
             timerReset: function () {
-                console.log("timerReset");
                 this.$refs.timer.timerReset();
             },
         },

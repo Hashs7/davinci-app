@@ -1,8 +1,14 @@
 <template>
     <div class="c-slide players-count">
-        <span class="players-count__btn" @click="updatePlayers(-1)">-</span>
-        <span class="players-count__current">{{ playersCount }}</span>
-        <span class="players-count__btn" @click="updatePlayers(1)">+</span>
+        <header class="l-header">
+            <h2>Joueurs</h2>
+            <h3 class="l-header__subtitle">Joueurs</h3>
+        </header>
+        <div class="c-slide__content">
+            <span class="players-count__btn" @click="updatePlayers(-1)">-</span>
+            <span class="players-count__current">{{ playersCount }}</span>
+            <span class="players-count__btn" @click="updatePlayers(1)">+</span>
+        </div>
     </div>
 </template>
 

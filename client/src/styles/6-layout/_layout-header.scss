@@ -5,10 +5,14 @@
 // -----------------------------------------------------------------------------
 
 .l-header {
-    position: fixed;
-    top: 0;
+    position: relative;
+    height: 210px;
+    padding-top: 50px;
+}
+
+.l-header__subtitle {
+    position: absolute;
+    top: 20px;
     left: 0;
     right: 0;
-    height: 90px;
-    padding-top: 50px;
 }

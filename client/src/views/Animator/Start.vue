@@ -1,11 +1,7 @@
 <template>
-    <main class="l-view">
-        <header class="l-header">
-            <h1>{{ title }}</h1>
-        </header>
+    <main class="l-view l-view--animator">
         <div class="l-page">
             <div class="l-page__content">
-
                 <carousel :per-page="1" @page-change="pageChange" :navigationEnabled="true">
                     <slide>
                         <PlayersCount />
@@ -14,19 +10,19 @@
                         <Scenario />
                     </slide>
                     <slide>
-                        <Tutorial />
+                        <Tutorial :index="1" :txt="animator.first" />
                     </slide>
                     <slide>
-                        <Tutorial />
+                        <Tutorial :index="2" :txt="animator.second" />
                     </slide>
                     <slide>
-                        <Tutorial />
+                        <Tutorial :index="3" :txt="animator.third" />
                     </slide>
                     <slide>
-                        <Tutorial />
+                        <Tutorial :index="4" :txt="animator.fourth" />
                     </slide>
                     <slide>
-                        <Tutorial />
+                        <Tutorial :index="5" :txt="animator.fifth" />
                     </slide>
                 </carousel>
 
@@ -39,8 +35,10 @@
     import PlayersCount from '@/components/animator/PlayersCount';
     import Scenario from '@/components/animator/Scenario';
     import Tutorial from '@/components/animator/Tutorial';
+    import TUTO from '@/const/TUTO';
     import {routePath} from "../../router";
 
+    console.log(TUTO);
     export default {
         name: "Start",
         components: {
@@ -49,7 +47,8 @@
             Tutorial,
         },
         data: () => ({
-            title: "Joueurs"
+            title: "Joueurs",
+            animator: TUTO.animator
         }),
         methods: {
             pageChange(index) {
@@ -67,6 +66,9 @@
 </script>
 
 <style>
+    .l-page__content {
+        width: 100%;
+    }
     .VueCarousel-navigation-next, .VueCarousel-navigation-prev {
         transform: translateY(-50%) !important;
     }
