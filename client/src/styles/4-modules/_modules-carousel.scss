@@ -1,0 +1,37 @@
+/*
+ * [ modules / carousel ]
+ */
+
+// -----------------------------------------------------------------------------
+
+.VueCarousel-navigation-next, .VueCarousel-navigation-prev {
+    transform: translateY(-50%) !important;
+}
+.VueCarousel-navigation--disabled {
+    opacity: 0 !important;
+}
+.VueCarousel-slide {
+    display: flex;
+}
+.VueCarousel-navigation {
+
+}
+.VueCarousel-pagination {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.VueCarousel-dot {
+    width: 30px !important;
+    height: 6px !important;
+    background-color: #5B5B59 !important;
+    border-radius: 0 !important;
+    &:focus {
+        outline: none !important;
+    }
+    &--active {
+        background-color: $white !important;
+    }
+}

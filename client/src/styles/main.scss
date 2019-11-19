@@ -23,7 +23,11 @@
   '2-elements/elements-table';
 
 @import
-  '3-components/components-slide';
+  '3-components/components-slide',
+  '3-components/components-link';
+
+@import
+  '4-modules/modules-carousel';
 
 @import
   '5-objects/objects-container',

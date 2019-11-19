@@ -8,13 +8,14 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
     line-height: $line-height-headings;
     font-family: $font-title;
-    font-weight: $weight-bold;
+    font-weight: $weight-thin;
     p {
         margin-top: 0;
     }
 }
 
 h2 {
+
     font-size: 102px;
 }
 

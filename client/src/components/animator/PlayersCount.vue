@@ -1,10 +1,12 @@
 <template>
-    <div class="c-slide players-count">
-        <header class="l-header">
-            <h2>Joueurs</h2>
-            <h3 class="l-header__subtitle">Joueurs</h3>
+    <div class="c-slide">
+        <header class="c-slide__header">
+            <div class="u-relative">
+                <h2 class="c-slide__title">Joueurs</h2>
+                <h3 class="c-slide__subtitle">Joueurs</h3>
+            </div>
         </header>
-        <div class="c-slide__content">
+        <div class="c-slide__content players-count">
             <span class="players-count__btn" @click="updatePlayers(-1)">-</span>
             <span class="players-count__current">{{ playersCount }}</span>
             <span class="players-count__btn" @click="updatePlayers(1)">+</span>
@@ -33,8 +35,11 @@
 <style scoped>
     .players-count {
         font-size: 180px;
+        font-weight: 300;
         display: flex;
         justify-content: center;
+        flex-direction: row;
+        font-family: 'Orelo Variable', serif;
     }
     .players-count__btn {
         width: 120px;

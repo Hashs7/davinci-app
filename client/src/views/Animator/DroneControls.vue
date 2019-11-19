@@ -1,57 +1,82 @@
 <template>
     <main class="l-view l-view--animator">
-        <header class="l-header">
-            <h1>Parcours</h1>
-        </header>
-        <div class="l-page">
-            <div class="l-page__content">
+        <div class="c-slide">
+            <header class="c-slide__header">
+                <div class="u-relative">
+                    <h2 class="c-slide__title">Parcours</h2>
+                    <h3 class="c-slide__subtitle">Parcours</h3>
+                </div>
+            </header>
+            <div class="c-slide__content">
                 <div class="controls-container">
-                    <div class="controls__btn" @click="showModal = true">
+                    <div class="controls__btn c-link--primary" @click="showModal = true">
                         <div class="content">
-                            <span>Lancer la séquence</span>
+                            <div class="c-link__icon">
+                                <Arrow />
+                            </div>
+                            <span class="c-link__label">Lancer la séquence</span>
                         </div>
                     </div>
-                    <div class="controls__btn" @click="stopSequence">
+                    <div class="controls__btn c-link" @click="stopSequence">
                         <div class="content">
-                            <span class="">Arrêt</span>
+                            <div class="c-link__icon">
+                                <Stop />
+                            </div>
+                            <span class="c-link__label">Arrêt</span>
                         </div>
                     </div>
-                    <div class="controls__btn" @click="goStartSequence">
+                    <div class="controls__btn c-link" @click="goStartSequence">
                         <div class="content">
-                            <span class="">Revenir au départ</span>
+                            <div class="c-link__icon--flip-180">
+                                <Arrow />
+                            </div>
+                            <span class="c-link__label">Revenir au départ</span>
                         </div>
                     </div>
                 </div>
+            </div>
+            <modal v-if="showModal" @close="showModal = false">
+                <div slot="header">
+                    <h2 class="c-slide__title">Sécurité</h2>
+                    <h3 class="c-slide__subtitle">Sécurité</h3>
+                </div>
 
-            </div>
+                <div slot="body">
+                    <p>Est ce que tout le monde est en dehors du parcours ?</p>
+                </div>
+                <div slot="footer">
+                    <div class="c-link-container">
+                        <div @click="startSequence" class="c-link--flat c-link--half">
+                            <span>Oui</span>
+                        </div>
+                        <div @click="showModal = false" class="c-link--flat c-link--half">
+                            <span>Non</span>
+                        </div>
+                    </div>
+                </div>
+            </modal>
         </div>
-        <modal v-if="showModal" @close="showModal = false">
-            <h3 slot="header">Sécurité</h3>
-            <div slot="body">
-                <p>Est ce que tout le monde est en dehors du parcours ?</p>
-            </div>
-            <div slot="footer">
-                <button @click="startSequence">Oui</button>
-                <button @click="showModal = false">Non</button>
-            </div>
-        </modal>
     </main>
 </template>
 
 <script>
+    import Arrow from '@/assets/icons/ic_arrow.svg';
+    import Stop from '@/assets/icons/ic_stop.svg';
     import Modal from "@/components/Modal";
 
     export default {
         name: "DroneControls",
         components: {
-            Modal
+            Modal,
+            Arrow,
+            Stop,
         },
         data: () => ({
             showModal: false,
         }),
         methods: {
             startSequence() {
-               this.showModal = false;
+                this.showModal = false;
                 this.$socket.emit('drone_sequence-start')
             },
             stopSequence() {
@@ -69,19 +94,19 @@
         display: flex;
         justify-content: center;
     }
+
     .controls__btn {
-        width: 176px;
-        height: 176px;
-        display: flex;
-        margin: 0 85px;
         user-select: none;
-        background-color: #D8D8D8;
 
         &:active {
             background-color: #919191;
         }
     }
+
     .content {
         margin: auto;
+    }
+    .c-link__icon--flip-180 path {
+        fill: #5B5B59;
     }
 </style>

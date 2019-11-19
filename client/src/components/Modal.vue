@@ -2,29 +2,31 @@
     <transition name="modal">
         <div class="modal-mask">
             <div class="modal-wrapper">
-                <div class="modal-container">
+                <main class="l-view l-view--animator">
+                    <div class="c-slide">
+                        <header class="c-slide__header">
+                            <div class="u-relative">
+                                <slot name="header"></slot>
+                            </div>
+                        </header>
+                        <div class="c-slide__content">
+                            <div class="modal-body">
+                                <slot name="body">
+                                    default body
+                                </slot>
+                            </div>
 
-                    <div class="modal-header">
-                        <slot name="header">
-                            default header
-                        </slot>
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                    default footer
+                                    <button class="modal-default-button" @click="$emit('close')">
+                                        OK
+                                    </button>
+                                </slot>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="modal-body">
-                        <slot name="body">
-                            default body
-                        </slot>
-                    </div>
-
-                    <div class="modal-footer">
-                        <slot name="footer">
-                            default footer
-                            <button class="modal-default-button" @click="$emit('close')">
-                                OK
-                            </button>
-                        </slot>
-                    </div>
-                </div>
+                </main>
             </div>
         </div>
     </transition>
@@ -37,6 +39,11 @@
 </script>
 
 <style scoped>
+    .c-slide__content {
+        max-width: 510px;
+        margin: auto;
+    }
+
     .modal-mask {
         position: fixed;
         z-index: 9998;
@@ -71,6 +78,7 @@
 
     .modal-body {
         margin: 20px 0;
+        font-size: 46px;
     }
 
     .modal-default-button {

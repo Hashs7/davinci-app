@@ -5,15 +5,24 @@
             <span class="number">:</span>
             <span class="number">{{ seconds }}</span>
         </div>
+<!--        <div class="status-tag" :class="statusType">{{ statusText }}</div>-->
+
         <div v-if="controls" class="timer__controls">
-            <span v-if="!isStarted" @click="timerStart">Démarrer</span>
-            <div v-else>
-                <span v-if="isPaused" @click="timerPlay">Reprendre</span>
-                <span v-else @click="timerPause">Pause</span>
-                <span @click="timerReset">Réinitialiser</span>
+            <div v-if="!isStarted" @click="timerStart" class="c-link--flat">
+                <span>Démarrer</span>
+            </div>
+            <div v-else class="c-link-container">
+                <div v-if="isPaused" @click="timerPlay" class="c-link--flat c-link--half" >
+                    <span>Reprendre</span>
+                </div>
+                <div v-else @click="timerPause" class="c-link--flat c-link--half">
+                    <span>Pause</span>
+                </div>
+                <div @click="timerReset" class="c-link--flat c-link--outline c-link--half">
+                    <span>Réinitialiser</span>
+                </div>
             </div>
         </div>
-        <div class="status-tag" :class="statusType">{{ statusText }}</div>
     </div>
 </template>
 
@@ -89,7 +98,7 @@
                 this.timerPlay();
             },
             timerPlay() {
-                setTimeout(this.instance, 100);
+                // setTimeout(this.instance, 100);
 
                 this.isPaused = false;
                 this.start = new Date().getTime();
@@ -105,6 +114,7 @@
                 }, 1000);
             },
             instance() {
+                // Dead code
                 this.time += 100;
 
                 this.elapsed = Math.floor(this.time / 100) / 10;
@@ -141,6 +151,7 @@
 
 <style scoped>
     .timer__values {
+        font-family: 'Orelo Variable', sans-serif;
         font-size: 200px;
     }
 </style>

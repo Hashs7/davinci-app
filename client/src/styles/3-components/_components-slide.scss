@@ -5,11 +5,29 @@
 // -----------------------------------------------------------------------------
 
 .c-slide {
+    position: relative;
     width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.c-slide__header {
+    position: absolute;
+    top: 0;
+    padding-top: 50px;
+    left: 0;
+    right: 0;
+}
+.c-slide__title {
+}
+.c-slide__subtitle {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
     margin: auto;
 }
 
 .c-slide__content {
-    display: flex;
-    flex-direction: column;
+    margin: auto;
 }

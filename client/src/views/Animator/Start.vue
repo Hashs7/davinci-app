@@ -65,17 +65,8 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .l-page__content {
         width: 100%;
-    }
-    .VueCarousel-navigation-next, .VueCarousel-navigation-prev {
-        transform: translateY(-50%) !important;
-    }
-    .VueCarousel-navigation--disabled {
-        opacity: 0 !important;
-    }
-    .VueCarousel-slide {
-        display: flex;
     }
 </style>

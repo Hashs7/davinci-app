@@ -1,0 +1,81 @@
+/*
+ * [ component / c-link ]
+ */
+
+// -----------------------------------------------------------------------------
+
+.c-link {
+    user-select: none;
+    cursor: pointer;
+    display: inline-flex;
+    width: 174px;
+    height: 174px;
+    margin: 40px;
+    padding: 20px;
+    font-size: 18px;
+    line-height: 1;
+    color: $gray;
+    background-color: $white;
+    transition: all .3s ease;
+
+    &:active {
+        color: $white;
+        background-color: #ada399;
+        path {
+            fill: $white !important;
+        }
+    }
+
+    path {
+        transition: all .3s ease;
+    }
+
+    * {
+        margin: auto;
+    }
+
+    &--primary {
+        @extend .c-link;
+        color: $white;
+        background-color: $brown;
+        &:active {
+            background-color: #5D4020 !important;
+        }
+    }
+
+    &--outline {
+        color: $white;
+        background-color: transparent;
+        border: 1px solid #F5F1ED;
+    }
+}
+
+.c-link--flat {
+    @extend .c-link;
+    font-size: 23px;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 80px;
+}
+
+.c-link--half {
+    width: calc(50% - 8px);
+}
+
+.c-link__icon {
+    margin-bottom: 16px;
+    &--flip-180 {
+        @extend .c-link__icon;
+        transform: rotate(180deg);
+    }
+}
+
+.c-link__label {
+    display: block;
+}
+
+.c-link-container {
+    display: flex;
+    justify-content: space-between;
+}

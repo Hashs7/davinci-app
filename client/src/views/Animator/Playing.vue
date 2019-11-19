@@ -1,12 +1,17 @@
 <template>
     <main class="l-view l-view--animator">
-        <header class="l-header">
-            <h1>Chronomètre</h1>
-        </header>
-        <div class="l-page">
-            <div class="l-page__content">
+        <div class="c-slide">
+            <header class="c-slide__header">
+                <div class="u-relative">
+                    <h2 class="c-slide__title">Chronomètre</h2>
+                    <h3 class="c-slide__subtitle">Chronomètre</h3>
+                </div>
+            </header>
+            <div class="c-slide__content">
                 <Timer controls />
-                <router-link to="/animator/controls" class="link">Partie terminée</router-link>
+                <router-link to="/animator/controls" class="c-link--primary c-link--flat">
+                    <span>Partie terminée</span>
+                </router-link>
             </div>
         </div>
     </main>
@@ -20,19 +25,14 @@
         components: {
             Timer,
         },
-        computed: {
-            startDate() {
-                // Add 5 minutes
-                return new Date();
-            },
-            endDate() {
-                // Add 5 minutes
-                return new Date(new Date().getTime() + (5 * 60000));
-            }
-        }
     }
 </script>
 
 <style scoped>
-
+    .c-slide__content {
+        width: 476px;
+    }
+    .c-link--primary {
+        margin-top: 16px;
+    }
 </style>

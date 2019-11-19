@@ -1,14 +1,19 @@
 <template>
     <div class="c-slide">
-        <header class="l-header">
-            <h2>Tutoriel</h2>
-            <h3 class="l-header__subtitle">Tutoriel</h3>
+        <header class="c-slide__header">
+            <div class="u-relative">
+                <h2 class="c-slide__title">Tutoriel</h2>
+                <h3 class="c-slide__subtitle">Tutoriel</h3>
+            </div>
         </header>
+        <div class="c-slide__content">
+            <h2 class="c-slide__index">{{ index }}</h2>
+            <p class="c-slide__desc">{{ txt }}</p>
 
-        <h2 class="c-slide__index">{{ index }}</h2>
-        <p class="c-slide__desc">{{ txt }}</p>
-
-        <router-link v-if="index === 5" to="/animator/playing" class="link">Démarrer le jeu</router-link>
+            <router-link v-if="index === 5" to="/animator/playing" class="c-link--primary c-link--flat">
+                <span>Démarrer le jeu</span>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -37,15 +42,13 @@
 </script>
 
 <style scoped>
-    .c-slide {
-        position: relative;
-        max-width: 600px;
-    }
-
     .c-slide__index {
         font-size: 180px;
     }
-
+    .c-slide__content {
+        max-width: 600px;
+        margin: auto;
+    }
     .c-slide__desc {
         text-align: left;
         font-size: 36px;
