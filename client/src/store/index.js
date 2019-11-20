@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {createMatrix, getPath, setItem} from "../utils/API";
+import {createMatrix, getMatrix, getPath, setItem} from "../utils/API";
 
 Vue.use(Vuex);
 
@@ -24,8 +24,16 @@ export default new Vuex.Store({
       playersCount: 0
   },
   mutations: {
+      setMatrix(state, { matrix, start, end }) {
+          console.log(matrix);
+        state.matrix = matrix;
+        state.start = start;
+        state.end = end;
+        state.matrixColumnSize = matrix.width;
+        state.matrixRowSize = matrix.height;
+      },
       
-      updateMatrixRowSize(state,value){
+      updateMatrixRowSize(state, value){
         state.matrixRowSize = value;
           createMatrix(value, state.matrixColumnSize)
               .then(({ data }) => {
@@ -33,7 +41,7 @@ export default new Vuex.Store({
               });
       },
 
-      updateMatrixColumnSize(state,value){
+      updateMatrixColumnSize(state, value){
           state.matrixColumnSize = value;
           createMatrix(state.matrixRowSize, value)
               .then(({ data }) => {
@@ -72,6 +80,11 @@ export default new Vuex.Store({
       async findPath({ commit }) {
           const { data } = await getPath();
           commit('drawPath', data.path);
+      },
+      async getCurrentMatrix({ commit }) {
+          const { data } = await getMatrix();
+          console.log(data);
+          commit('setMatrix', data);
       }
   },
   modules: {
