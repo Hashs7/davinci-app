@@ -1,3 +1,4 @@
+
 const fs      = require('fs');
 const pf      = require('pathfinding');
 const app     = require('./app');
@@ -8,15 +9,23 @@ const io     = require('./socket').init(server);
 
 io.on('connection', socket => {
     console.log('Client connected');
-
-
     /*
     ** Swift app
     */
     socket.on('detectSymbol', (symbolId) => {
+
+
         const combination = helpers.getSymbolCombination(symbolId);
-        console.log(symbolId);
-        console.log(combination);
+
+        combination.forEach((move) =>{
+            let lastPos = {};
+            helpers.getLastPos().then((data)=>{
+                lastPos = data;
+                helpers.testNewMove(lastPos, move)
+            });
+
+        });
+
         io.emit('droneCombination', combination);
     });
 
@@ -26,13 +35,15 @@ io.on('connection', socket => {
                 console.error(err);
                 return
             }
-            const {dronePositions} = JSON.parse(data);
+            const dronePositions = JSON.parse(data);
             const json             = {
                 ...data,
                 dronePositions: helpers.getNewPositions(dronePositions, moveStr)
             };
-            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
-            });
+
+            console.log(json)
+            //fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
+            //});
         });
     });
 
@@ -43,6 +54,7 @@ io.on('connection', socket => {
                 return
             }
             const {dronePositions, matrix, start} = JSON.parse(data);
+            console.log(dronePositions)
             const currentPos                      = dronePositions[dronePositions.length - 1];
             const grid                            = new pf.Grid(matrix.nodes);
 
