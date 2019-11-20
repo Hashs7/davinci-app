@@ -1,8 +1,12 @@
 <template>
-    <div class="v-play">
-        <GridContainer/>
-        <Timer ref="timer" :startTime="startTime" :endTime="endTime"/>
-    </div>
+    <main class="l-view l-view--animator">
+        <div class="c-slide">
+            <div class="c-slide__content">
+                <GridContainer />
+                <Timer ref="timer" :startTime="startTime" :endTime="endTime"/>
+            </div>
+        </div>
+    </main>
 </template>
 
 <script>
