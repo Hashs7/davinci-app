@@ -41,10 +41,10 @@ export default {
     user-select: none;
 
     &.start {
-        background-color: green;
+        background-color: #5fbe84;
     }
     &.end {
-        background-color: red;
+        background-color: #b33434;
     }
     &.path {
         background-color: orange;
@@ -52,11 +52,11 @@ export default {
     &.disable {
         background: repeating-linear-gradient(
             -45deg,
-            $white,
-            $white 4px,
-            $white 4px,
-            black 4px,
-            black 8px
+            transparent,
+            transparent 4px,
+            transparent 4px,
+            #9B6F5D 4px,
+            #9B6F5D 7px
         );
     }
 }
