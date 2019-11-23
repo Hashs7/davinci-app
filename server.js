@@ -13,18 +13,52 @@ io.on('connection', socket => {
     ** Swift app
     */
     socket.on('detectSymbol', (symbolId) => {
-
-
         const combination = helpers.getSymbolCombination(symbolId);
+        const moveArray = [];
+        const indexArray = [];
+        helpers.getPosArray(combination);
 
-        combination.forEach((move) =>{
-            let lastPos = {};
-            helpers.getLastPos().then((data)=>{
-                lastPos = data;
-                helpers.testNewMove(lastPos, move)
-            });
 
-        });
+
+        // combination.forEach((move,index)=>
+        // {
+        //     fs.readFile('matrix.json', 'utf8', (err, data) => {
+        //         if (err) {
+        //             console.error(err);
+        //             return
+        //         }
+        //         const matrix = JSON.parse(data);
+        //         let lastPos;
+        //         if (!matrix.dronePositions) {
+        //             lastPos = matrix.start
+        //         } else {
+        //             lastPos = matrix.dronePositions
+        //         }
+        //         //new position
+        //         const newPos = helpers.addMove(lastPos,move);
+        //         const grid = matrix.matrix;
+        //         let testPos = null;
+        //
+        //         //is out or unwalkable
+        //         try {
+        //             testPos = grid.nodes[newPos.y][newPos.x];
+        //             if (testPos.walkable === false) {
+        //                 testPos = "noWalkable";
+        //             }
+        //         } catch (e) {
+        //             testPos = "out";
+        //         }
+        //         moveArray.push(testPos);
+        //         indexArray.push(index);
+        //
+        //     });
+        // });
+
+
+        // helpers.getPosArray(combination).then((data)=>{
+        //     console.log(data)
+        // });
+
 
         io.emit('droneCombination', combination);
     });
@@ -42,8 +76,8 @@ io.on('connection', socket => {
             };
 
             console.log(json)
-            //fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
-            //});
+            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
+            });
         });
     });
 

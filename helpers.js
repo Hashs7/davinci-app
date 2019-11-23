@@ -1,15 +1,47 @@
 const constants = require('./constants');
 const fs      = require('fs');
 
+const notNull = (value) => {
+    return typeof(value) !== undefined && value !== null;
+}
+
 exports.getSymbolCombination = (symbolId) => {
     const symbol = constants.SYMBOLS.find(el => el.id === Number(symbolId));
     return symbol.combination;
 };
 
-exports.getLastPos = () => {
+exports.getPosArray = (combination) =>{
+    const promises = combination.map(comb => getNewPos(comb));
 
+    Promise.all(promises).then((data)=>{
+        data.forEach((item) => {
+            console.log(item)
+        })
+    })
+};
+
+function testMove (matrix,newPos) {
+
+    const grid = matrix.matrix;
+    let testPos = null;
+    //console.log("matrix nodes", grid.nodes)
+    //console.log("newPos", newPos)
+    try {
+        testPos = grid.nodes[newPos.y][newPos.x]
+        if (testPos.walkable === false) return "noWalkable";
+        return testPos;
+    } catch (e) {
+        console.log("impossible")
+        //console.error(e)
+        return "impossible"
+    }
+}
+
+
+
+//GET LAST POSITION
+const getNewPos = (move) => {
     return new Promise((resolve, reject)=>{
-
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -19,70 +51,42 @@ exports.getLastPos = () => {
             let lastPos;
             if(!matrix.dronePositions){
                 lastPos= matrix.start
-            }else{
+            } else {
                 lastPos= matrix.dronePositions
             }
-            if(lastPos) {
-                resolve(lastPos);
-            }else{
-                reject()
-            }
-        })
 
+
+            const newMove = addMove(lastPos, move)
+            const test = testMove(matrix, newMove)
+            console.log(test);
+            resolve(newMove)
+        })
     });
 
 };
 
-const readFileMatrix =()=>{
-    return new Promise((resolve, reject)=>{
 
-        fs.readFile('matrix.json', 'utf8', (err, data) => {
-            if (err) {
-                console.error(err);
-                return
-            }
-            const matrix = JSON.parse(data);
-            if(matrix){
-                resolve(matrix);
-            }else{
-                reject()
-            }
 
-        })
 
-    });
-};
+addMove = (lastPos,move) => {
+    //return new Promise((resolve, reject)=> {
 
-exports.testNewMove = (lastPos,move) => {
-    const newPos = lastPos;
+    const addMove = lastPos;
     switch (move) {
         case "front":
-            newPos.y -= 1;
+            addMove.y -= 1;
             break;
         case "back":
-            newPos.y += 1;
+            addMove.y += 1;
             break;
         case "left":
-            newPos.x -= 1;
+            addMove.x -= 1;
             break;
         case "right":
-            newPos.x += 1;
+            addMove.x += 1;
             break;
     }
-    let grid = {};
-    readFileMatrix().then((data)=>{
-        grid = data.matrix;
-        const testPos = grid.nodes[newPos.y][newPos.x];
-
-        if(testPos){
-            console.log(testPos)
-        }
-
-
-    })
-        .catch((error)=>{
-            console.log(error)
-        });
+    return addMove
 
     // matrix.dronePositions = lastPos.nodes
     //
@@ -91,26 +95,7 @@ exports.testNewMove = (lastPos,move) => {
     // console.log(lastPos)
 };
 
-exports.getNewPositions = (allPositions, move) => {
-    const lastPos  = allPositions[allPositions.length - 1];
-    const dronePos = allPositions;
-    switch (move) {
-        case "front":
-            lastPos.y -= 1;
-            break;
-        case "back":
-            lastPos.y += 1;
-            break;
-        case "left":
-            lastPos.x -= 1;
-            break;
-        case "right":
-            lastPos.x += 1;
-            break;
-    }
-    dronePos.push(lastPos);
-    return dronePos
-};
+
 
 exports.convertPathToMoves = (path) => {
     const moves = [];
