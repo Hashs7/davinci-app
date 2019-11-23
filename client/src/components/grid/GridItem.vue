@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         setItem() {
-            this.value
+            if(!this.debug) return;
             this.$store.commit('setItemValue', this.position)
         }
     }
@@ -33,24 +33,31 @@ export default {
 <style lang="scss" scoped>
 .grid-item {
     display: flex;
-    width: 80px;
-    height: 80px;
-    border: 2px solid black;
+    width: 55px;
+    height: 55px;
+    border: 2px solid $white;
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;
 
     &.start {
-        background-color: green;
+        background-color: #5fbe84;
     }
     &.end {
-        background-color: red;
+        background-color: #b33434;
     }
     &.path {
         background-color: orange;
     }
     &.disable {
-        background-color: gray;
+        background: repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 4px,
+            transparent 4px,
+            #9B6F5D 4px,
+            #9B6F5D 7px
+        );
     }
 }
 .value {

@@ -40,14 +40,18 @@ export default {
             return this.$store.state.matrix.nodes.flat();
         }
     },
+    mounted() {
+        this.$store.dispatch('getCurrentMatrix');
+    }
 }
 </script>
 
 <style scoped>
 .grid-container {
     display: inline-grid;
-    margin: 0 auto;
-    grid-template-columns: repeat(var(--grid-column), 80px);
-    grid-template-rows: repeat(var(--grid-row), 80px);
+    grid-template-columns: repeat(var(--grid-column), 55px);
+    grid-template-rows: repeat(var(--grid-row), 55px);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
 }
 </style>

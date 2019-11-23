@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>{{ screen.first }}</p>
+        <video ref="video" autoplay loop controls src="@/assets/videos/TutoDroneObstacle.mp4"></video>
     </div>
 </template>
 
@@ -17,6 +17,9 @@
                 this.$router.push({ path });
             }
         },
+        mounted() {
+            setTimeout(() => this.$refs.video.play(), 1000)
+        }
     }
 </script>
 

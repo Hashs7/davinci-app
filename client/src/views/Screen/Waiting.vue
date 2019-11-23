@@ -1,7 +1,11 @@
 <template>
-    <div>
-        <p>Logo</p>
-    </div>
+    <main class="l-view l-view--animator">
+        <div class="c-slide">
+            <div class="c-slide__content">
+                <p>Logo</p>
+            </div>
+        </div>
+    </main>
 </template>
 
 <script>

@@ -54,3 +54,18 @@ export const getPath = async () => {
     };
     return api(options)
 };
+
+/**
+ *
+ * @returns {Promise<AxiosPromise>}
+ */
+export const getMatrix = async () => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/matrix'
+    };
+    return api(options)
+};
