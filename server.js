@@ -12,20 +12,18 @@ io.on('connection', socket => {
     /*
     ** Swift app
     */
+    const combination = helpers.getSymbolCombination(1);
+    const finalComb = helpers.testCombination(combination);
+
     socket.on('detectSymbol', (symbolId) => {
-
-
         const combination = helpers.getSymbolCombination(symbolId);
-
-        combination.forEach((move) =>{
+        /*combination.forEach((move) => {
             let lastPos = {};
-            helpers.getLastPos().then((data)=>{
+            helpers.getLastPos().then((data) => {
                 lastPos = data;
                 helpers.testNewMove(lastPos, move)
             });
-
-        });
-
+        });*/
         io.emit('droneCombination', combination);
     });
 
@@ -63,6 +61,7 @@ io.on('connection', socket => {
                     grid.setWalkableAt(j, i, true)
                 })
             });
+
             const finder = new pf.AStarFinder();
             const path   = finder.findPath(currentPos.x, currentPos.y, start.x, start.y, grid);
             const moves  = helpers.convertPathToMoves(path);

@@ -6,55 +6,103 @@ exports.getSymbolCombination = (symbolId) => {
     return symbol.combination;
 };
 
-exports.getLastPos = () => {
-
-    return new Promise((resolve, reject)=>{
-
+const getLastPos = () => {
+    return new Promise((resolve, reject) => {
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
-                console.error(err);
+                reject(err);
                 return
             }
             const matrix = JSON.parse(data);
-            let lastPos;
-            if(!matrix.dronePositions){
-                lastPos= matrix.start
-            }else{
-                lastPos= matrix.dronePositions
+            if (!matrix.dronePositions.length) {
+                resolve(matrix.start)
+            } else {
+                const last = matrix.dronePositions.length - 1;
+                resolve(matrix.dronePositions[last]);
             }
-            if(lastPos) {
-                resolve(lastPos);
-            }else{
-                reject()
-            }
-        })
-
+        });
     });
-
 };
 
-const readFileMatrix =()=>{
-    return new Promise((resolve, reject)=>{
-
+const readFileMatrix = () => {
+    return new Promise((resolve, reject) => {
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
-                return
+                return;
             }
             const matrix = JSON.parse(data);
-            if(matrix){
+            console.log("dronePositions", matrix.dronePositions);
+            if (matrix) {
                 resolve(matrix);
-            }else{
+            } else {
                 reject()
             }
-
         })
-
     });
 };
 
-exports.testNewMove = (lastPos,move) => {
+const newDronePositions = (position) => {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.readFile('matrix.json', 'utf8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                let { matrix, start, end, dronePositions } = JSON.parse(data);
+                console.log("current dronePositions", dronePositions);
+                console.log("to store", position);
+                dronePositions.push(position);
+
+                const json = JSON.stringify({
+                    start,
+                    end,
+                    matrix,
+                    dronePositions,
+                });
+
+                fs.writeFile('matrix.json', json, 'utf8', () => {
+                    resolve("gg")
+                });
+            });
+        } catch (e) {
+            console.error(e);
+            reject(e);
+        }
+    });
+
+};
+
+exports.testCombination = async (combination) => {
+    let index = 0;
+    const lastPosition = await getLastPos();
+    singleMove(0, combination, lastPosition);
+
+
+    /*combination.forEach(async (move) => {
+        const position = await testNewMove(move);
+        console.log("newPosition", position );
+        console.log("result", result);
+    })*/
+};
+
+const singleMove = async (index, combination, lastPos) => {
+    try {
+        const newPosition = await testNewMove(lastPos, combination[index]);
+        const result = await newDronePositions(newPosition);
+        if(combination[index++]) {
+            singleMove(index++, combination, newPosition);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+const testNewMove = async (lastPos, move) => {
     const newPos = lastPos;
+    console.log('lastPos', newPos);
+    console.log("move", move);
     switch (move) {
         case "front":
             newPos.y -= 1;
@@ -69,26 +117,22 @@ exports.testNewMove = (lastPos,move) => {
             newPos.x += 1;
             break;
     }
-    let grid = {};
-    readFileMatrix().then((data)=>{
-        grid = data.matrix;
-        const testPos = grid.nodes[newPos.y][newPos.x];
 
-        if(testPos){
-            console.log(testPos)
+    const { matrix } = await readFileMatrix();
+    try {
+        const testPos = matrix.nodes[newPos.y][newPos.x];
+
+        if(!testPos.walkable) {
+            return "impossible"
         }
-
-
-    })
-        .catch((error)=>{
-            console.log(error)
-        });
-
-    // matrix.dronePositions = lastPos.nodes
-    //
-    //  fs.writeFile('matrix.json', JSON.stringify(matrix), 'utf8', () => {
-    //  });
-    // console.log(lastPos)
+        return {
+            x: newPos.x,
+            y: newPos.y,
+        }
+    } catch (e) {
+        console.error(e);
+        return "impossible"
+    }
 };
 
 exports.getNewPositions = (allPositions, move) => {
