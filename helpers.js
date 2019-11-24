@@ -1,5 +1,9 @@
+const fs        = require('fs');
 const constants = require('./constants');
-const fs      = require('fs');
+
+const notNull = (value) => {
+    return typeof(value) !== undefined && value !== null;
+}
 
 exports.getSymbolCombination = (symbolId) => {
     const symbol = constants.SYMBOLS.find(el => el.id === Number(symbolId));
@@ -32,7 +36,6 @@ const readFileMatrix = () => {
                 return;
             }
             const matrix = JSON.parse(data);
-            console.log("dronePositions", matrix.dronePositions);
             if (matrix) {
                 resolve(matrix);
             } else {
@@ -51,7 +54,7 @@ const newDronePositions = (position) => {
                     return;
                 }
                 let { matrix, start, end, dronePositions } = JSON.parse(data);
-                console.log("current dronePositions", dronePositions);
+                // console.log("current dronePositions", dronePositions);
                 console.log("to store", position);
                 dronePositions.push(position);
 
@@ -75,64 +78,62 @@ const newDronePositions = (position) => {
 };
 
 exports.testCombination = async (combination) => {
-    let index = 0;
-    const lastPosition = await getLastPos();
-    singleMove(0, combination, lastPosition);
-
-
-    /*combination.forEach(async (move) => {
-        const position = await testNewMove(move);
-        console.log("newPosition", position );
-        console.log("result", result);
-    })*/
+    console.log("combination", combination);
+    let lastPosition = await getLastPos();
+    singleMove(0, combination, lastPosition)
 };
 
 const singleMove = async (index, combination, lastPos) => {
     try {
+        console.log(index);
         const newPosition = await testNewMove(lastPos, combination[index]);
         const result = await newDronePositions(newPosition);
-        if(combination[index++]) {
-            singleMove(index++, combination, newPosition);
+        if(combination.length - 1 !== index) {
+            console.log("trigger next singlemove");
+            singleMove(index += 1, combination, newPosition);
         }
     } catch (e) {
         console.error(e);
     }
 };
 
-const testNewMove = async (lastPos, move) => {
-    const newPos = lastPos;
-    console.log('lastPos', newPos);
-    console.log("move", move);
-    switch (move) {
-        case "front":
-            newPos.y -= 1;
-            break;
-        case "back":
-            newPos.y += 1;
-            break;
-        case "left":
-            newPos.x -= 1;
-            break;
-        case "right":
-            newPos.x += 1;
-            break;
-    }
+const testNewMove = (lastPos, move) => {
+    return new Promise(( async (resolve, reject) => {
+        const newPos = lastPos;
+        // console.log('lastPos', newPos);
+        console.log("move", move);
+        switch (move) {
+            case "front":
+                newPos.y -= 1;
+                break;
+            case "back":
+                newPos.y += 1;
+                break;
+            case "left":
+                newPos.x -= 1;
+                break;
+            case "right":
+                newPos.x += 1;
+                break;
+        }
 
-    const { matrix } = await readFileMatrix();
-    try {
-        const testPos = matrix.nodes[newPos.y][newPos.x];
+        const { matrix } = await readFileMatrix();
+        try {
+            const testPos = matrix.nodes[newPos.y][newPos.x];
 
-        if(!testPos.walkable) {
+            if(!testPos.walkable) {
+                resolve("impossible")
+            }
+            resolve({
+                x: newPos.x,
+                y: newPos.y,
+            });
+        } catch (e) {
+            reject(e)
+            console.error(e);
             return "impossible"
         }
-        return {
-            x: newPos.x,
-            y: newPos.y,
-        }
-    } catch (e) {
-        console.error(e);
-        return "impossible"
-    }
+    }))
 };
 
 exports.getNewPositions = (allPositions, move) => {
@@ -162,16 +163,12 @@ exports.convertPathToMoves = (path) => {
         if(i === path.length - 1) return;
         const nextEl = path[i+1];
         if (el[0] > nextEl[0]) {
-            console.log("go left");
             moves.push(constants.MOVE.left)
         } else if (el[0] < nextEl[0]){
-            console.log("go right");
             moves.push(constants.MOVE.right)
         } else if (el[1] > nextEl[1]) {
-            console.log("go front");
             moves.push(constants.MOVE.front)
         } else if (el[1] < nextEl[1]) {
-            console.log("go back");
             moves.push(constants.MOVE.back)
         }
     });
