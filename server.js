@@ -7,19 +7,19 @@ const helpers = require('./helpers');
 const server = app.listen(process.env.PORT || 3000);
 const io     = require('./socket').init(server);
 
-const combination = helpers.getSymbolCombination(5);
+const combination = helpers.getSymbolCombination(4);
 const finalComb = helpers.testCombination(combination);
-console.log(finalComb);
 
 io.on('connection', socket => {
     console.log('Client connected');
+
     /*
     ** Swift app
     */
-
-
     socket.on('detectSymbol', (symbolId) => {
         const combination = helpers.getSymbolCombination(symbolId);
+        const finalComb = helpers.testCombination(combination);
+
         /*combination.forEach((move) => {
             let lastPos = {};
             helpers.getLastPos().then((data) => {

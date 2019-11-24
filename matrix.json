@@ -349,5 +349,6 @@
       ]
     ]
   },
-  "dronePositions": []
+  "dronePositions": [],
+  "droneMoves": []
 }

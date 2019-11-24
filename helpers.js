@@ -45,7 +45,7 @@ const readFileMatrix = () => {
     });
 };
 
-const newDronePositions = (position) => {
+const newDronePositions = (position, move, isFirst) => {
     return new Promise((resolve, reject) => {
         try {
             fs.readFile('matrix.json', 'utf8', (err, data) => {
@@ -53,16 +53,24 @@ const newDronePositions = (position) => {
                     console.error(err);
                     return;
                 }
-                let { matrix, start, end, dronePositions } = JSON.parse(data);
+                let { matrix, start, end, dronePositions, droneMoves } = JSON.parse(data);
                 // console.log("current dronePositions", dronePositions);
                 console.log("to store", position);
-                dronePositions.push(position);
+                if(isFirst) {
+                    droneMoves = []
+                }
+                if(move !== "impossible") {
+                    dronePositions.push(position);
+                }
+                droneMoves.push(move);
+
 
                 const json = JSON.stringify({
                     start,
                     end,
                     matrix,
                     dronePositions,
+                    droneMoves,
                 });
 
                 fs.writeFile('matrix.json', json, 'utf8', () => {
@@ -86,9 +94,9 @@ exports.testCombination = async (combination) => {
 const singleMove = async (index, combination, lastPos) => {
     try {
         console.log(index);
-        const newPosition = await testNewMove(lastPos, combination[index]);
-        const result = await newDronePositions(newPosition);
-        if(combination.length - 1 !== index) {
+        const { newPosition, move } = await testNewMove(lastPos, combination[index]);
+        const result = await newDronePositions(newPosition, move, index === 0);
+        if(combination.length - 1 !== index  && move !== "impossible") {
             console.log("trigger next singlemove");
             singleMove(index += 1, combination, newPosition);
         }
@@ -100,8 +108,6 @@ const singleMove = async (index, combination, lastPos) => {
 const testNewMove = (lastPos, move) => {
     return new Promise(( async (resolve, reject) => {
         const newPos = lastPos;
-        // console.log('lastPos', newPos);
-        console.log("move", move);
         switch (move) {
             case "front":
                 newPos.y -= 1;
@@ -122,16 +128,18 @@ const testNewMove = (lastPos, move) => {
             const testPos = matrix.nodes[newPos.y][newPos.x];
 
             if(!testPos.walkable) {
-                resolve("impossible")
+                resolve({ move: "impossible" })
             }
             resolve({
-                x: newPos.x,
-                y: newPos.y,
+                newPosition: {
+                    x: newPos.x,
+                    y: newPos.y,
+                },
+                move,
             });
         } catch (e) {
-            reject(e)
+            resolve({ move: "impossible" });
             console.error(e);
-            return "impossible"
         }
     }))
 };
