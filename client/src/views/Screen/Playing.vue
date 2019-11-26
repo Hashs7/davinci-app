@@ -55,6 +55,7 @@
         margin: auto;
     }
     .timer-container {
+        width: 250px;
         margin-left: 200px;
     }
 </style>

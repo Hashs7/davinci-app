@@ -2,7 +2,7 @@
     <main class="l-view l-view--animator">
         <div class="l-page">
             <div class="l-page__content">
-                <carousel :per-page="1" @page-change="pageChange" :navigationEnabled="true">
+                <carousel :per-page="1" @page-change="pageChange" :navigationEnabled="true" :minSwipeDistance="600">
                     <slide>
                         <PlayersCount />
                     </slide>

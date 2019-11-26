@@ -144,6 +144,7 @@
             }
         },
         beforeDestroy() {
+            this.timerPause();
             clearInterval(this.interval);
         }
     }

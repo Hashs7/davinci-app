@@ -25,7 +25,7 @@
         methods: {
             updatePlayers(value) {
                 if (this.playersCount === 0 && value < 0) return;
-                if (this.playersCount === 10 && value > 0) return;
+                if (this.playersCount === 6 && value > 0) return;
                 this.$store.state.playersCount += value;
             }
         }

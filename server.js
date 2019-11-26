@@ -7,18 +7,18 @@ const helpers = require('./helpers');
 const server = app.listen(process.env.PORT || 3000);
 const io     = require('./socket').init(server);
 
-const combination = helpers.getSymbolCombination(4);
-const finalComb = helpers.testCombination(combination);
+
 
 io.on('connection', socket => {
     console.log('Client connected');
 
     /*
-    ** Swift app
+    ** From Swift app
     */
-    socket.on('detectSymbol', (symbolId) => {
-        const combination = helpers.getSymbolCombination(symbolId);
-        const finalComb = helpers.testCombination(combination);
+    socket.on('detectSymbol', (name) => {
+        console.log("symbolName", name);
+        const combination = helpers.getSymbolCombination(name);
+        helpers.testCombination(combination);
 
         /*combination.forEach((move) => {
             let lastPos = {};
@@ -27,7 +27,6 @@ io.on('connection', socket => {
                 helpers.testNewMove(lastPos, move)
             });
         });*/
-        io.emit('droneCombination', combination);
     });
 
     socket.on('droneMove', (moveStr) => {
@@ -42,22 +41,37 @@ io.on('connection', socket => {
                 dronePositions: helpers.getNewPositions(dronePositions, moveStr)
             };
 
-            console.log(json)
-            //fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
-            //});
+            console.log(dronePositions)
+            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
+            });
         });
     });
 
-    socket.on('goToStart', () => {
+
+
+    /*
+    ** From Vue app
+    */
+    socket.on('screenView', (data) => io.emit('screenView', data));
+    socket.on('timerStart', (data) => io.emit('timerStart', data));
+    socket.on('timerPause', (data) => io.emit('timerPause', data));
+    socket.on('timerReset', (data) => io.emit('timerReset', data));
+
+    /**
+     * DroneControls
+     */
+    socket.on('drone_start', (data) => io.emit('drone_start', data));
+    socket.on('drone_stop', (data) => io.emit('drone_stop', data));
+    socket.on('drone_backhome', () => {
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 return
             }
             const {dronePositions, matrix, start} = JSON.parse(data);
-            console.log(dronePositions)
             const currentPos                      = dronePositions[dronePositions.length - 1];
             const grid                            = new pf.Grid(matrix.nodes);
+            console.log(dronePositions)
 
             grid.nodes.forEach((el, i) => {
                 el.forEach((subEl, j) => {
@@ -69,18 +83,15 @@ io.on('connection', socket => {
             const path   = finder.findPath(currentPos.x, currentPos.y, start.x, start.y, grid);
             const moves  = helpers.convertPathToMoves(path);
             console.log(moves);
-            io.emit('goToStart', moves)
+            io.emit('drone_backhome', moves)
         });
-
     });
 
-    /*
-    ** Vue app
-    */
-    socket.on('screenView', (data) => io.emit('screenView', data));
-    socket.on('timerStart', (data) => io.emit('timerStart', data));
-    socket.on('timerPause', (data) => io.emit('timerPause', data));
-    socket.on('timerReset', (data) => io.emit('timerReset', data));
+    socket.on('pushSymbol', () => {
+        const combination = helpers.getSymbolCombination("Blue");
+        console.log("pushSymbol");
+        helpers.testCombination(combination);
+    })
 
     socket.on('disconnect', () => {
         console.log('Client disconnect');

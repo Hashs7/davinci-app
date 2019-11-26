@@ -1,12 +1,8 @@
 const fs        = require('fs');
 const constants = require('./constants');
 
-const notNull = (value) => {
-    return typeof(value) !== undefined && value !== null;
-}
-
-exports.getSymbolCombination = (symbolId) => {
-    const symbol = constants.SYMBOLS.find(el => el.id === Number(symbolId));
+exports.getSymbolCombination = (symbolName) => {
+    const symbol = constants.SYMBOLS.find(el => el.name === symbolName);
     return symbol.combination;
 };
 
@@ -45,7 +41,7 @@ const readFileMatrix = () => {
     });
 };
 
-const newDronePositions = (position, move, isFirst) => {
+const storeDroneMove = (position, move, isFirst) => {
     return new Promise((resolve, reject) => {
         try {
             fs.readFile('matrix.json', 'utf8', (err, data) => {
@@ -53,13 +49,13 @@ const newDronePositions = (position, move, isFirst) => {
                     console.error(err);
                     return;
                 }
-                let { matrix, start, end, dronePositions, droneMoves } = JSON.parse(data);
+                let {matrix, start, end, dronePositions, droneMoves} = JSON.parse(data);
                 // console.log("current dronePositions", dronePositions);
                 console.log("to store", position);
-                if(isFirst) {
+                if (isFirst) {
                     droneMoves = []
                 }
-                if(move !== "impossible") {
+                if (move !== "impossible") {
                     dronePositions.push(position);
                 }
                 droneMoves.push(move);
@@ -94,19 +90,28 @@ exports.testCombination = async (combination) => {
 const singleMove = async (index, combination, lastPos) => {
     try {
         console.log(index);
-        const { newPosition, move } = await testNewMove(lastPos, combination[index]);
-        const result = await newDronePositions(newPosition, move, index === 0);
-        if(combination.length - 1 !== index  && move !== "impossible") {
+        const {newPosition, move} = await testNewMove(lastPos, combination[index]);
+        const result              = await storeDroneMove(newPosition, move, index === 0);
+        if (combination.length - 1 !== index && move !== "impossible") {
             console.log("trigger next singlemove");
             singleMove(index += 1, combination, newPosition);
+        } else {
+            emitCombination();
         }
     } catch (e) {
         console.error(e);
     }
 };
 
+const emitCombination = async () => {
+    const io        = require('./socket').getIO();
+    const {droneMoves} = await readFileMatrix();
+    console.log("emitCombination to drone", droneMoves);
+    io.emit('drone_combination', droneMoves);
+}
+
 const testNewMove = (lastPos, move) => {
-    return new Promise(( async (resolve, reject) => {
+    return new Promise((async (resolve, reject) => {
         const newPos = lastPos;
         switch (move) {
             case "front":
@@ -123,12 +128,12 @@ const testNewMove = (lastPos, move) => {
                 break;
         }
 
-        const { matrix } = await readFileMatrix();
+        const {matrix} = await readFileMatrix();
         try {
             const testPos = matrix.nodes[newPos.y][newPos.x];
 
-            if(!testPos.walkable) {
-                resolve({ move: "impossible" })
+            if (!testPos.walkable) {
+                resolve({move: "impossible"})
             }
             resolve({
                 newPosition: {
@@ -138,7 +143,7 @@ const testNewMove = (lastPos, move) => {
                 move,
             });
         } catch (e) {
-            resolve({ move: "impossible" });
+            resolve({move: "impossible"});
             console.error(e);
         }
     }))
@@ -165,14 +170,15 @@ exports.getNewPositions = (allPositions, move) => {
     return dronePos
 };
 
+
 exports.convertPathToMoves = (path) => {
     const moves = [];
     path.forEach((el, i) => {
-        if(i === path.length - 1) return;
-        const nextEl = path[i+1];
+        if (i === path.length - 1) return;
+        const nextEl = path[i + 1];
         if (el[0] > nextEl[0]) {
             moves.push(constants.MOVE.left)
-        } else if (el[0] < nextEl[0]){
+        } else if (el[0] < nextEl[0]) {
             moves.push(constants.MOVE.right)
         } else if (el[1] > nextEl[1]) {
             moves.push(constants.MOVE.front)

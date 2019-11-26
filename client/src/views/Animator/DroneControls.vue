@@ -33,6 +33,11 @@
                             <span class="c-link__label">Revenir au départ</span>
                         </div>
                     </div>
+                    <div class="controls__btn c-link" @click="sendSymbol">
+                        <div class="content">
+                            <span class="c-link__label">sendSymbol</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <modal v-if="showModal" @close="showModal = false">
@@ -77,13 +82,16 @@
         methods: {
             startSequence() {
                 this.showModal = false;
-                this.$socket.emit('drone_sequence-start')
+                this.$socket.emit('drone_start')
             },
             stopSequence() {
                 this.$socket.emit('drone_stop')
             },
             goStartSequence() {
-                this.$socket.emit('drone_go-start')
+                this.$socket.emit('drone_backhome')
+            },
+            sendSymbol() {
+                this.$socket.emit('pushSymbol')
             }
         }
     }
