@@ -106,9 +106,16 @@ const singleMove = async (index, combination, lastPos) => {
 const emitCombination = async () => {
     const io        = require('./socket').getIO();
     const {droneMoves} = await readFileMatrix();
-    console.log("emitCombination to drone", droneMoves);
-    io.emit('drone_combination', droneMoves);
-}
+    const isImpossible = droneMoves.filter(move => move === "impossible");
+    if (isImpossible.length) {
+        // c'est impossible
+        io.emit('drone_combination', droneMoves);
+    } else {
+        //Emit color
+        const { name } = constants.SYMBOLS.find(el => arraysEqual(el.combination, droneMoves));
+        io.emit('drone_color-combination', [name])  ;
+    }
+};
 
 const testNewMove = (lastPos, move) => {
     return new Promise((async (resolve, reject) => {
@@ -188,3 +195,8 @@ exports.convertPathToMoves = (path) => {
     });
     return moves;
 };
+
+function arraysEqual(a1, a2) {
+    /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+    return JSON.stringify(a1) === JSON.stringify(a2);
+}

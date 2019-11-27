@@ -16,20 +16,13 @@ io.on('connection', socket => {
     ** From Swift app
     */
     socket.on('detectSymbol', (name) => {
-        console.log("symbolName", name);
+        console.log("detectSymbol: ", name);
         const combination = helpers.getSymbolCombination(name);
         helpers.testCombination(combination);
-
-        /*combination.forEach((move) => {
-            let lastPos = {};
-            helpers.getLastPos().then((data) => {
-                lastPos = data;
-                helpers.testNewMove(lastPos, move)
-            });
-        });*/
     });
 
     socket.on('droneMove', (moveStr) => {
+        console.log("droneMove: ", moveStr);
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -41,9 +34,8 @@ io.on('connection', socket => {
                 dronePositions: helpers.getNewPositions(dronePositions, moveStr)
             };
 
-            console.log(dronePositions)
-            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
-            });
+            console.log(dronePositions);
+            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {});
         });
     });
 
@@ -52,6 +44,8 @@ io.on('connection', socket => {
     /*
     ** From Vue app
     */
+    socket.on('updatePlayers', (data) => io.emit('updatePlayers', data));
+    socket.on('droneControls', () => io.emit('droneControls'));
     socket.on('screenView', (data) => io.emit('screenView', data));
     socket.on('timerStart', (data) => io.emit('timerStart', data));
     socket.on('timerPause', (data) => io.emit('timerPause', data));
@@ -63,6 +57,8 @@ io.on('connection', socket => {
     socket.on('drone_start', (data) => io.emit('drone_start', data));
     socket.on('drone_stop', (data) => io.emit('drone_stop', data));
     socket.on('drone_backhome', () => {
+        console.log("drone_backhome");
+
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -87,10 +83,11 @@ io.on('connection', socket => {
         });
     });
 
-    socket.on('pushSymbol', () => {
-        const combination = helpers.getSymbolCombination("Blue");
-        console.log("pushSymbol");
+    socket.on('pushSymbol', (name) => {
+        const combination = helpers.getSymbolCombination(name);
         helpers.testCombination(combination);
+        console.log("pushSymbol", name);
+        //io.emit('drone_combination', combination);
     })
 
     socket.on('disconnect', () => {

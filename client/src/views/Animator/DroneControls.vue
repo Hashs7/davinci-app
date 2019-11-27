@@ -9,7 +9,7 @@
             </header>
             <div class="c-slide__content">
                 <div class="controls-container">
-                    <div class="controls__btn c-link--primary" @click="showModal = true">
+<!--                    <div class="controls__btn c-link&#45;&#45;primary" @click="showModal = true">
                         <div class="content">
                             <div class="c-link__icon">
                                 <Arrow />
@@ -27,15 +27,35 @@
                     </div>
                     <div class="controls__btn c-link" @click="goStartSequence">
                         <div class="content">
-                            <div class="c-link__icon--flip-180">
+                            <div class="c-link__icon&#45;&#45;flip-180">
                                 <Arrow />
                             </div>
                             <span class="c-link__label">Revenir au départ</span>
                         </div>
-                    </div>
-                    <div class="controls__btn c-link" @click="sendSymbol">
+                    </div>-->
+                    <div class="controls__btn c-link" @click="sendSymbol('White')">
                         <div class="content">
-                            <span class="c-link__label">sendSymbol</span>
+                            <span class="c-link__label">send white</span>
+                        </div>
+                    </div>
+                    <div class="controls__btn c-link" @click="sendSymbol('Blue')">
+                        <div class="content">
+                            <span class="c-link__label">send Blue</span>
+                        </div>
+                    </div>
+                    <div class="controls__btn c-link" @click="sendSymbol('Yellow')">
+                        <div class="content">
+                            <span class="c-link__label">send Yellow</span>
+                        </div>
+                    </div>
+                    <div class="controls__btn c-link" @click="sendSymbol('Red')">
+                        <div class="content">
+                            <span class="c-link__label">send Red</span>
+                        </div>
+                    </div>
+                    <div class="controls__btn c-link" @click="sendSymbol('Green')">
+                        <div class="content">
+                            <span class="c-link__label">send Green</span>
                         </div>
                     </div>
                 </div>
@@ -90,9 +110,12 @@
             goStartSequence() {
                 this.$socket.emit('drone_backhome')
             },
-            sendSymbol() {
-                this.$socket.emit('pushSymbol')
+            sendSymbol(value) {
+                this.$socket.emit('pushSymbol', value)
             }
+        },
+        mounted() {
+            this.$socket.emit("droneControls")
         }
     }
 </script>

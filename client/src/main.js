@@ -25,3 +25,8 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+
+
+document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+})

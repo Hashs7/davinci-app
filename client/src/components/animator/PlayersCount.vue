@@ -25,8 +25,9 @@
         methods: {
             updatePlayers(value) {
                 if (this.playersCount === 0 && value < 0) return;
-                if (this.playersCount === 6 && value > 0) return;
+                if (this.playersCount === 4 && value > 0) return;
                 this.$store.state.playersCount += value;
+                this.$socket.emit('updatePlayers', this.playersCount);
             }
         }
     }
@@ -39,7 +40,7 @@
         display: flex;
         justify-content: center;
         flex-direction: row;
-        font-family: 'Orelo Variable', serif;
+        font-family: 'Ogg', serif;
     }
     .players-count__btn {
         width: 120px;

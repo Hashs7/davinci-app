@@ -24,6 +24,10 @@ export default new Vuex.Store({
       playersCount: 0
   },
   mutations: {
+      SOCKET_updatePlayers(state, value) {
+          state.playersCount = value;
+      },
+
       setMatrix(state, { matrix, start, end }) {
           console.log(matrix);
         state.matrix = matrix;

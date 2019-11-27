@@ -4,11 +4,18 @@
 
 // -----------------------------------------------------------------------------
 .l-view {
-    height: calc(100vh - 69px);
     color: white;
 }
 
 .l-view--animator {
+    height: calc(100vh - 69px);
+    background-size: cover;
+    background-position: center;
+    background-image: url('~@/assets/background-ipad.jpg');
+}
+
+.l-view--screen {
+    height: 100vh;
     background-size: cover;
     background-position: center;
     background-image: url('~@/assets/background.jpg');

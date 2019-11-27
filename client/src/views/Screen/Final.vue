@@ -1,5 +1,5 @@
 <template>
-    <main class="l-view l-view--animator">
+    <main class="l-view l-view--screen">
         <div class="c-slide">
             <header class="c-slide__header">
                 <div class="u-relative">

@@ -1,5 +1,5 @@
 <template>
-    <main class="l-view l-view--animator">
+    <main class="l-view l-view--screen">
         <div class="c-slide">
             <div class="c-slide__content">
                 <div class="play-container">
@@ -43,7 +43,13 @@
             timerReset: function () {
                 this.$refs.timer.timerReset();
             },
+            droneControls() {
+                this.droneStarted = true
+            }
         },
+        mounted() {
+            this.$socket
+        }
     }
 </script>
 

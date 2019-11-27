@@ -16,8 +16,9 @@ html {
 
 html,
 body {
+    user-select: none;
     min-height: calc(100vh - 69px);
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 body {
