@@ -47,7 +47,6 @@
     import TUTO from '@/const/TUTO';
     import {routePath} from "../../router";
 
-    console.log(TUTO);
     export default {
         name: "Start",
         components: {

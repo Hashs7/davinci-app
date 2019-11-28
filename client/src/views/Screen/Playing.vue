@@ -46,9 +46,6 @@
             droneControls() {
                 this.droneStarted = true
             }
-        },
-        mounted() {
-            this.$socket
         }
     }
 </script>

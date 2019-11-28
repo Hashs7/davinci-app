@@ -7,8 +7,6 @@ const helpers = require('./helpers');
 const server = app.listen(process.env.PORT || 3000);
 const io     = require('./socket').init(server);
 
-
-
 io.on('connection', socket => {
     console.log('Client connected');
 
@@ -39,8 +37,6 @@ io.on('connection', socket => {
         });
     });
 
-
-
     /*
     ** From Vue app
     */
@@ -61,8 +57,9 @@ io.on('connection', socket => {
     socket.on('drone_stop', (data) => io.emit('drone_stop', data));
     socket.on('drone_backhome', () => {
         console.log("drone_backhome");
+        io.emit('drone_backhome');
 
-        fs.readFile('matrix.json', 'utf8', (err, data) => {
+        /*fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 return
@@ -83,7 +80,7 @@ io.on('connection', socket => {
             const moves  = helpers.convertPathToMoves(path);
             console.log(moves);
             io.emit('drone_backhome', moves)
-        });
+        });*/
     });
 
     // Super controls
@@ -91,15 +88,19 @@ io.on('connection', socket => {
         const combination = helpers.getSymbolCombination(name);
         helpers.testCombination(combination);
         console.log("pushSymbol", name);
-        //io.emit('drone_combination', combination);
-    })
+        io.emit('drone_color-combination', [name]);
+    });
     socket.on('drone_moveTo', (data) => {
-        console.log("drone_moveTo");
+        console.log("drone_moveTo", data);
         io.emit('drone_moveTo', data)
     });
-    socket.on('drone_calibrate', (data) => io.emit('drone_calibrate', data));
-    socket.on('drone_detection', (data) => io.emit('drone_detection', data));
-
+    socket.on('drone_calibrate', () => {
+        io.emit('drone_calibrate')
+    });
+    socket.on('drone_detection', () => {
+        console.log("drone_detection");
+        io.emit('drone_detection')
+    });
 
     socket.on('disconnect', () => {
         console.log('Client disconnect');

@@ -2,18 +2,18 @@
     <div>
         <div class="super-controls__up">
             <div class="super-controls__moves">
-                <span class="move up" @click="moveTo('up')">
+                <span class="move move__up" @click="moveTo('front')">
                     <Arrow/>
                 </span>
                 <div>
-                    <span class="move left" @click="moveTo('left')">
+                    <span class="move move__left" @click="moveTo('left')">
                         <Arrow/>
                     </span>
-                    <span class="move right" @click="moveTo('right')">
+                    <span class="move move__right" @click="moveTo('right')">
                         <Arrow/>
                     </span>
                 </div>
-                <span class="move down" @click="moveTo('down')">
+                <span class="move move__down" @click="moveTo('back')">
                     <Arrow/>
                 </span>
             </div>
@@ -83,25 +83,30 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
     .super-controls__moves {
         text-align: center;
         margin-right: 80px;
     }
     .move {
+        display: inline-block;
+        box-sizing: content-box;
+        background-color: white;
         padding: 20px;
+        path {
+            fill: black !important;
+        }
     }
-
-    .down svg {
+    .move__down {
         transform: rotate(180deg);
     }
 
-    .left svg {
-        margin-right: 50px;
+    .move__left{
+        margin-right: 60px;
         transform: rotate(-90deg);
     }
 
-    .right svg {
+    .move__right {
         transform: rotate(90deg);
     }
 

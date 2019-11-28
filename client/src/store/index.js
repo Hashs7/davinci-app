@@ -29,8 +29,13 @@ export default new Vuex.Store({
       },
 
       SOCKET_updateDronePos(state, positions) {
+          const newPosition = positions.slice(state.resolve.length - 1)
           console.log("postions", positions);
-          state.resolve = positions;
+          newPosition.forEach((pos, i) => {
+              setTimeout(() => {
+                  state.resolve.push(pos)
+              }, i * 1500)
+          });
       },
 
       setMatrix(state, { matrix, start, end }) {
