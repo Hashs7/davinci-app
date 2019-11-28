@@ -9,61 +9,18 @@ const io     = require('./socket').init(server);
 
 io.on('connection', socket => {
     console.log('Client connected');
+
     /*
-    ** Swift app
+    ** From Swift app
     */
-    socket.on('detectSymbol', (symbolId) => {
-        const combination = helpers.getSymbolCombination(symbolId);
-        const moveArray = [];
-        const indexArray = [];
-        helpers.getPosArray(combination);
-
-
-
-        // combination.forEach((move,index)=>
-        // {
-        //     fs.readFile('matrix.json', 'utf8', (err, data) => {
-        //         if (err) {
-        //             console.error(err);
-        //             return
-        //         }
-        //         const matrix = JSON.parse(data);
-        //         let lastPos;
-        //         if (!matrix.dronePositions) {
-        //             lastPos = matrix.start
-        //         } else {
-        //             lastPos = matrix.dronePositions
-        //         }
-        //         //new position
-        //         const newPos = helpers.addMove(lastPos,move);
-        //         const grid = matrix.matrix;
-        //         let testPos = null;
-        //
-        //         //is out or unwalkable
-        //         try {
-        //             testPos = grid.nodes[newPos.y][newPos.x];
-        //             if (testPos.walkable === false) {
-        //                 testPos = "noWalkable";
-        //             }
-        //         } catch (e) {
-        //             testPos = "out";
-        //         }
-        //         moveArray.push(testPos);
-        //         indexArray.push(index);
-        //
-        //     });
-        // });
-
-
-        // helpers.getPosArray(combination).then((data)=>{
-        //     console.log(data)
-        // });
-
-
-        io.emit('droneCombination', combination);
+    socket.on('detectSymbol', (name) => {
+        console.log("detectSymbol: ", name);
+        const combination = helpers.getSymbolCombination(name);
+        helpers.testCombination(combination);
     });
 
     socket.on('droneMove', (moveStr) => {
+        console.log("droneMove: ", moveStr);
         fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -75,44 +32,75 @@ io.on('connection', socket => {
                 dronePositions: helpers.getNewPositions(dronePositions, moveStr)
             };
 
-            console.log(json)
-            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {
-            });
+            console.log(dronePositions);
+            fs.writeFile('matrix.json', JSON.stringify(json), 'utf8', () => {});
         });
     });
 
-    socket.on('goToStart', () => {
-        fs.readFile('matrix.json', 'utf8', (err, data) => {
+    /*
+    ** From Vue app
+    */
+    socket.on('updatePlayers', (data) => io.emit('updatePlayers', data));
+    socket.on('droneControls', () => io.emit('droneControls'));
+    socket.on('screenView', (data) => io.emit('screenView', data));
+    socket.on('timerStart', (data) => io.emit('timerStart', data));
+    socket.on('timerPause', (data) => io.emit('timerPause', data));
+    socket.on('timerReset', (data) => io.emit('timerReset', data));
+
+    /**
+     * DroneControls
+     */
+    socket.on('drone_start', (data) => {
+        helpers.clearDronePositions();
+        io.emit('drone_start', data);
+    });
+    socket.on('drone_stop', (data) => io.emit('drone_stop', data));
+    socket.on('drone_backhome', () => {
+        console.log("drone_backhome");
+        io.emit('drone_backhome');
+
+        /*fs.readFile('matrix.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 return
             }
             const {dronePositions, matrix, start} = JSON.parse(data);
-            console.log(dronePositions)
             const currentPos                      = dronePositions[dronePositions.length - 1];
             const grid                            = new pf.Grid(matrix.nodes);
+            console.log(dronePositions)
 
             grid.nodes.forEach((el, i) => {
                 el.forEach((subEl, j) => {
                     grid.setWalkableAt(j, i, true)
                 })
             });
+
             const finder = new pf.AStarFinder();
             const path   = finder.findPath(currentPos.x, currentPos.y, start.x, start.y, grid);
             const moves  = helpers.convertPathToMoves(path);
             console.log(moves);
-            io.emit('goToStart', moves)
-        });
-
+            io.emit('drone_backhome', moves)
+        });*/
     });
 
-    /*
-    ** Vue app
-    */
-    socket.on('screenView', (data) => io.emit('screenView', data));
-    socket.on('timerStart', (data) => io.emit('timerStart', data));
-    socket.on('timerPause', (data) => io.emit('timerPause', data));
-    socket.on('timerReset', (data) => io.emit('timerReset', data));
+    // Super controls
+    socket.on('pushSymbol', (name) => {
+        const combination = helpers.getSymbolCombination(name);
+        helpers.testCombination(combination);
+        console.log("pushSymbol", name);
+        io.emit('drone_color-combination', [name]);
+    });
+    socket.on('drone_moveTo', (data) => {
+        console.log("drone_moveTo", data);
+        io.emit('drone_moveTo', data)
+    });
+    socket.on('drone_calibrate', () => {
+        io.emit('drone_calibrate')
+    });
+    socket.on('drone_detection', () => {
+        console.log("drone_detection");
+        io.emit('drone_detection')
+    });
 
     socket.on('disconnect', () => {
         console.log('Client disconnect');

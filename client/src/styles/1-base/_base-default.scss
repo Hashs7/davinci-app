@@ -16,11 +16,13 @@ html {
 
 html,
 body {
-    min-height: 100vh;
-    overflow-x: hidden;
+    user-select: none;
+    min-height: calc(100vh - 69px);
+    overflow: hidden;
 }
 
 body {
+    touch-action: manipulation;
     line-height: $line-height-base;
     font-family: $font-text;
     font-weight: $weight-base;

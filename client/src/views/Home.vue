@@ -1,5 +1,5 @@
 <template>
-    <main class="l-view l-view--animator">
+    <main class="l-view l-view--screen">
         <div class="link-container">
             <router-link to="/animator/start" class="c-link">
                 <span>Utiliser en tant qu'animateur</span>

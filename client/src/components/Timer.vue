@@ -144,6 +144,7 @@
             }
         },
         beforeDestroy() {
+            this.timerPause();
             clearInterval(this.interval);
         }
     }
@@ -151,7 +152,7 @@
 
 <style scoped>
     .timer__values {
-        font-family: 'Orelo Variable', sans-serif;
+        font-family: 'Ogg', sans-serif;
         font-size: 200px;
     }
 </style>

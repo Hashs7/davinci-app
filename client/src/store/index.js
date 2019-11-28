@@ -24,6 +24,20 @@ export default new Vuex.Store({
       playersCount: 0
   },
   mutations: {
+      SOCKET_updatePlayers(state, value) {
+          state.playersCount = value;
+      },
+
+      SOCKET_updateDronePos(state, positions) {
+          const newPosition = positions.slice(state.resolve.length - 1)
+          console.log("postions", positions);
+          newPosition.forEach((pos, i) => {
+              setTimeout(() => {
+                  state.resolve.push(pos)
+              }, i * 1500)
+          });
+      },
+
       setMatrix(state, { matrix, start, end }) {
           console.log(matrix);
         state.matrix = matrix;

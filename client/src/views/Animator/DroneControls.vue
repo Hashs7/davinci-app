@@ -8,31 +8,42 @@
                 </div>
             </header>
             <div class="c-slide__content">
-                <div class="controls-container">
-                    <div class="controls__btn c-link--primary" @click="showModal = true">
-                        <div class="content">
-                            <div class="c-link__icon">
-                                <Arrow />
+                <div class="switch-controls" @click="superControls = !superControls">
+                    <span v-if="!superControls">Super controls</span>
+                    <span v-else>Simple controls</span>
+                </div>
+                <div>
+                    <div v-if="!superControls" class="controls-container">
+                        <div class="controls__btn c-link--primary" @click="showModal = true">
+                            <div class="content">
+                                <div class="c-link__icon">
+                                    <Arrow />
+                                </div>
+                                <span class="c-link__label">Lancer la séquence</span>
                             </div>
-                            <span class="c-link__label">Lancer la séquence</span>
+                        </div>
+                        <div class="controls__btn c-link" @click="stopSequence">
+                            <div class="content">
+                                <div class="c-link__icon">
+                                    <Stop />
+                                </div>
+                                <span class="c-link__label">Arrêt</span>
+                            </div>
+                        </div>
+                        <div class="controls__btn c-link" @click="goStartSequence">
+                            <div class="content">
+                                <div class="c-link__icon--flip-180">
+                                    <Arrow />
+                                </div>
+                                <span class="c-link__label">Revenir au départ</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="controls__btn c-link" @click="stopSequence">
-                        <div class="content">
-                            <div class="c-link__icon">
-                                <Stop />
-                            </div>
-                            <span class="c-link__label">Arrêt</span>
-                        </div>
+
+                    <div class="super-controls" v-else>
+                        <SuperControls />
                     </div>
-                    <div class="controls__btn c-link" @click="goStartSequence">
-                        <div class="content">
-                            <div class="c-link__icon--flip-180">
-                                <Arrow />
-                            </div>
-                            <span class="c-link__label">Revenir au départ</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <modal v-if="showModal" @close="showModal = false">
@@ -63,6 +74,7 @@
     import Arrow from '@/assets/icons/ic_arrow.svg';
     import Stop from '@/assets/icons/ic_stop.svg';
     import Modal from "@/components/Modal";
+    import SuperControls from "@/components/animator/SuperControls";
 
     export default {
         name: "DroneControls",
@@ -70,21 +82,26 @@
             Modal,
             Arrow,
             Stop,
+            SuperControls
         },
         data: () => ({
             showModal: false,
+            superControls: false,
         }),
         methods: {
             startSequence() {
                 this.showModal = false;
-                this.$socket.emit('drone_sequence-start')
+                this.$socket.emit('drone_start')
             },
             stopSequence() {
                 this.$socket.emit('drone_stop')
             },
             goStartSequence() {
-                this.$socket.emit('drone_go-start')
-            }
+                this.$socket.emit('drone_backhome')
+            },
+        },
+        mounted() {
+            this.$socket.emit("droneControls")
         }
     }
 </script>
@@ -94,6 +111,15 @@
         display: flex;
         justify-content: center;
     }
+    
+    .switch-controls {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 16px 32px;
+        color: $black;
+        background-color: $white;
+    }
 
     .controls__btn {
         user-select: none;
@@ -102,7 +128,10 @@
             background-color: #919191;
         }
     }
-
+    .super-controls__up {
+        display: flex;
+        align-items: center;
+    }
     .content {
         margin: auto;
     }

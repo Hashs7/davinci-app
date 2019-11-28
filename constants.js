@@ -7,24 +7,24 @@ const MOVE = {
 
 const SYMBOLS = [{
     id: 1,
-    name: "square",
-    combination: [MOVE.front, MOVE.front, MOVE.left]
+    name: "White",
+    combination: [MOVE.right, MOVE.right, MOVE.back]
 }, {
     id: 2,
-    name: "square",
-    combination: [MOVE.back, MOVE.right, MOVE.front, MOVE.left]
+    name: "Blue",
+    combination: [MOVE.right, MOVE.front, MOVE.front]
 }, {
     id: 3,
-    name: "square",
-    combination: [MOVE.front, MOVE.left, MOVE.front]
+    name: "Yellow",
+    combination: [MOVE.left, MOVE.left, MOVE.left, MOVE.front]
 }, {
     id: 4,
-    name: "square",
-    combination: [MOVE.back, MOVE.back, MOVE.back]
+    name: "Red",
+    combination: [MOVE.front, MOVE.right, MOVE.right, MOVE.right, MOVE.back]
 }, {
     id: 5,
-    name: "square",
-    combination: [MOVE.front, MOVE.left, MOVE.left]
+    name: "Green",
+    combination: [MOVE.left, MOVE.back, MOVE.back]
 }];
 
 module.exports = {
