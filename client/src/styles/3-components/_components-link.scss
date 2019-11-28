@@ -48,6 +48,12 @@
         background-color: transparent;
         border: 1px solid #F5F1ED;
     }
+    &--small {
+        @extend .c-link;
+        width: 120px;
+        height: 120px;
+        margin: 20px;
+    }
 }
 
 .c-link--flat {

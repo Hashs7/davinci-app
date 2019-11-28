@@ -59,6 +59,9 @@ const storeDroneMove = (position, move, isFirst) => {
                     dronePositions.push(position);
                 }
                 droneMoves.push(move);
+                const io = require('./socket').getIO();
+                console.log("updateDronePos");
+                io.emit('updateDronePos', dronePositions);
 
 
                 const json = JSON.stringify({
@@ -177,6 +180,16 @@ exports.getNewPositions = (allPositions, move) => {
     return dronePos
 };
 
+
+exports.clearDronePositions = async () => {
+    const matrix = await readFileMatrix();
+    const json = JSON.stringify({
+        ...matrix,
+        dronePositions: [],
+    });
+
+    fs.writeFile('matrix.json', json, 'utf8', () => {});
+};
 
 exports.convertPathToMoves = (path) => {
     const moves = [];

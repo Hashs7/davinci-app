@@ -39,6 +39,11 @@
     .player {
         margin: 0 90px;
         position: relative;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
         .player__img {
             position: absolute;
             top: 0;
@@ -47,6 +52,7 @@
             margin: auto;
         }
         .player__name {
+            margin-bottom: 0;
             opacity: .3;
             font-size: 28px;
             transition: opacity .4s ease-in-out;

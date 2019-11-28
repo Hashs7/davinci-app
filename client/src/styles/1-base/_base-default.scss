@@ -22,6 +22,7 @@ body {
 }
 
 body {
+    touch-action: manipulation;
     line-height: $line-height-base;
     font-family: $font-text;
     font-weight: $weight-base;

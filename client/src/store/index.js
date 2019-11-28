@@ -28,6 +28,11 @@ export default new Vuex.Store({
           state.playersCount = value;
       },
 
+      SOCKET_updateDronePos(state, positions) {
+          console.log("postions", positions);
+          state.resolve = positions;
+      },
+
       setMatrix(state, { matrix, start, end }) {
           console.log(matrix);
         state.matrix = matrix;

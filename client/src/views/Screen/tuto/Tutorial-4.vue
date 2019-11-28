@@ -3,12 +3,9 @@
         <div class="l-page">
             <div class="c-slide">
                 <div class="c-slide__content">
-                    <lottie :options="defaultOptions"  :height="800" :width="1000" v-on:animCreated="handleAnimation"/>
-                    <p>{{ screen.fourth }}</p>
+                    <lottie :options="defaultOptions"  :height="480" :width="1000" v-on:animCreated="handleAnimation"/>
+                    <p class="c-slide__txt">{{ screen.fourth }}</p>
                 </div>
-            </div>
-
-            <div class="l-page__content">
             </div>
         </div>
     </main>

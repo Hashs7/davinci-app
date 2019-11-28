@@ -54,7 +54,10 @@ io.on('connection', socket => {
     /**
      * DroneControls
      */
-    socket.on('drone_start', (data) => io.emit('drone_start', data));
+    socket.on('drone_start', (data) => {
+        helpers.clearDronePositions();
+        io.emit('drone_start', data);
+    });
     socket.on('drone_stop', (data) => io.emit('drone_stop', data));
     socket.on('drone_backhome', () => {
         console.log("drone_backhome");
@@ -83,12 +86,20 @@ io.on('connection', socket => {
         });
     });
 
+    // Super controls
     socket.on('pushSymbol', (name) => {
         const combination = helpers.getSymbolCombination(name);
         helpers.testCombination(combination);
         console.log("pushSymbol", name);
         //io.emit('drone_combination', combination);
     })
+    socket.on('drone_moveTo', (data) => {
+        console.log("drone_moveTo");
+        io.emit('drone_moveTo', data)
+    });
+    socket.on('drone_calibrate', (data) => io.emit('drone_calibrate', data));
+    socket.on('drone_detection', (data) => io.emit('drone_detection', data));
+
 
     socket.on('disconnect', () => {
         console.log('Client disconnect');

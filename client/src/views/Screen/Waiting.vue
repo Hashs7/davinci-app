@@ -66,5 +66,6 @@
 <style scoped>
     .players-container {
         display: flex;
+        max-width: 1550px;
     }
 </style>

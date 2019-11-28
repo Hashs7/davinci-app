@@ -3,12 +3,9 @@
             <div class="l-page">
                 <div class="c-slide">
                     <div class="c-slide__content">
-                        <lottie :options="defaultOptions"  :height="800" :width="1000" v-on:animCreated="handleAnimation"/>
-                        <p>{{ screen.first }}</p>
+                        <lottie :options="defaultOptions"  :height="500" :width="1000" v-on:animCreated="handleAnimation"/>
+                        <p class="c-slide__txt">{{ screen.first }}</p>
                     </div>
-                </div>
-
-                <div class="l-page__content">
                 </div>
             </div>
         </main>
@@ -16,7 +13,7 @@
 
 <script>
     import TUTO from '@/const/TUTO';
-    import * as animationData from '@/assets/bodymovin/TutoDroneLabyrinthv2.json';
+    import * as animationData from '@/assets/bodymovin/TutoDroneLabyrinth2.json';
     import Lottie from '@/components/Lottie';
 
     export default {
