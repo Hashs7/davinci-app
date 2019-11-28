@@ -101,6 +101,10 @@ io.on('connection', socket => {
         console.log("drone_detection");
         io.emit('drone_detection')
     });
+    socket.on('drone_rotate', (data) => {
+        console.log("drone_rotate", data);
+        io.emit('drone_rotate', data)
+    });
 
     socket.on('disconnect', () => {
         console.log('Client disconnect');

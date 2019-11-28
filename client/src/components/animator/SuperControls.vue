@@ -1,5 +1,15 @@
 <template>
     <div>
+        <div class="super-controls__type">
+            <div>
+                <span>Mouvements : </span>
+                <span v-if="intensityShort">court</span>
+                <span v-else>long</span>
+            </div>
+            <span class="move--intensity" @click="changeIntensity('short')">Définir court</span>
+            <span class="move--intensity" @click="changeIntensity('large')">Définir long</span>
+        </div>
+
         <div class="super-controls__up">
             <div class="super-controls__moves">
                 <span class="move move__up" @click="moveTo('front')">
@@ -16,6 +26,16 @@
                 <span class="move move__down" @click="moveTo('back')">
                     <Arrow/>
                 </span>
+            </div>
+            <div class="controls__btn c-link--small" @click="rotate('left')">
+                <div class="content">
+                    <span class="c-link__label">Rotation vers gauche</span>
+                </div>
+            </div>
+            <div class="controls__btn c-link--small" @click="rotate('right')">
+                <div class="content">
+                    <span class="c-link__label">Rotation vers droite</span>
+                </div>
             </div>
             <div class="controls__btn c-link--small" @click="calibrate">
                 <div class="content">
@@ -65,12 +85,19 @@
         components: {
             Arrow,
         },
+        data: () => ({
+            intensityShort: true
+        }),
         methods: {
             sendSymbol(value) {
                 this.$socket.emit('pushSymbol', value)
             },
             moveTo(value) {
                 console.log("drone_moveTo");
+                if(!this.intensityShort) {
+                    this.$socket.emit('drone_moveTo-long', [value]);
+                    return
+                }
                 this.$socket.emit('drone_moveTo', [value])
             },
             detect() {
@@ -78,6 +105,16 @@
             },
             calibrate() {
                 this.$socket.emit('drone_calibrate')
+            },
+            rotate(dir) {
+                this.$socket.emit('drone_rotate', dir)
+            },
+            changeIntensity(value) {
+                if (value === 'short') {
+                    this.intensityShort = true;
+                    return;
+                }
+                this.intensityShort = false;
             }
         }
     }
@@ -87,6 +124,13 @@
     .super-controls__moves {
         text-align: center;
         margin-right: 80px;
+    }
+    .move--intensity {
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 16px;
+        background-color: #fff;
+        color: black;
     }
     .move {
         display: inline-block;
