@@ -27,6 +27,16 @@
                     <Arrow/>
                 </span>
             </div>
+            <div class="controls__btn c-link--small" @click="rotate('left')">
+                <div class="content">
+                    <span class="c-link__label">Rotation vers gauche</span>
+                </div>
+            </div>
+            <div class="controls__btn c-link--small" @click="rotate('right')">
+                <div class="content">
+                    <span class="c-link__label">Rotation vers droite</span>
+                </div>
+            </div>
             <div class="controls__btn c-link--small" @click="calibrate">
                 <div class="content">
                     <span class="c-link__label">Calibrer orientation</span>
@@ -95,6 +105,9 @@
             },
             calibrate() {
                 this.$socket.emit('drone_calibrate')
+            },
+            rotate(dir) {
+                this.$socket.emit('drone_rotate', dir)
             },
             changeIntensity(value) {
                 if (value === 'short') {
