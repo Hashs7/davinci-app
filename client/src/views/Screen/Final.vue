@@ -3,7 +3,7 @@
         <div class="c-slide">
             <header class="c-slide__header">
                 <div class="u-relative">
-                    <div v-if="win">
+                    <div v-if="isWin">
                         <h2 class="c-slide__title">Gagné</h2>
                         <h3 class="c-slide__subtitle">Gagné</h3>
                     </div>
@@ -14,7 +14,7 @@
                 </div>
             </header>
             <div class="c-slide__content">
-                <div v-if="win" class="title-container">
+                <div v-if="isWin" class="title-container">
                     <p class="title">Félicitations, vous avez gagnez</p>
                     <p class="desc">une place pour l’exposition de Léonard de Vinci au musée du Louvre.</p>
                     <div class="img-louvre">
@@ -23,7 +23,7 @@
                 </div>
                 <div v-else class="title-container--loose">
                     <p class="title">Vous avez détruit la machine</p>
-                    <p class="desc">déguepissez rapidement avant que les conservateurs vous attrapent.</p>
+                    <p class="desc">déguerpissez rapidement avant que les conservateurs vous attrapent.</p>
                     <div class="img-left">
                         <ArrowLeft/>
                     </div>
@@ -48,9 +48,18 @@
             ArrowRight,
             Louvre,
         },
-        data: () => ({
-            win: false
-        })
+        computed: {
+            isWin() {
+                console.log();
+                return this.$store.state.isWin;
+            }
+        },
+        sockets: {
+            screenView: function ({ path }) {
+                if(path === this.$router.history.current.path) return;
+                this.$router.push({ path });
+            }
+        }
     }
 </script>
 
@@ -64,7 +73,7 @@
     }
 
     .title-container--loose {
-        max-width: 680px;
+        max-width: 690px;
     }
 
     .title {

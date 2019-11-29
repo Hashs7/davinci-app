@@ -5,7 +5,8 @@
                 <div class="play-container">
                     <GridContainer />
                     <div class="timer-container" v-if="!droneStarted">
-                        <Hourglass />
+<!--                        <Hourglass />-->
+                        <lottie :options="defaultOptions"  :height="350" :width="400" />
                         <Timer ref="timer" :startTime="startTime" :endTime="endTime"/>
                     </div>
                 </div>
@@ -18,6 +19,8 @@
     import GridContainer from '@/components/grid/GridContainer'
     import Timer from '@/components/Timer'
     import Hourglass from '@/components/Hourglass'
+    import * as animationData from '@/assets/bodymovin/TutoDroneSablier2.json';
+    import Lottie from '@/components/Lottie';
 
     export default {
         name: 'play',
@@ -25,11 +28,15 @@
             GridContainer,
             Timer,
             Hourglass,
+            Lottie,
         },
         data: () => ({
             startTime: null,
             endTime: null,
-            droneStarted: false
+            droneStarted: false,
+            animationData,
+            defaultOptions: { animationData: animationData.default },
+            animationSpeed: 1,
         }),
         sockets: {
             timerStart: function (data) {
@@ -43,14 +50,20 @@
             timerReset: function () {
                 this.$refs.timer.timerReset();
             },
-            droneControls() {
-                this.droneStarted = true
+            droneControls: function () {
+                this.droneStarted = true;
+            },
+            screenView: function ({ path, isWin }) {
+                if(path === this.$router.history.current.path) return;
+                console.log("isWin", isWin);
+                this.$store.state.isWin = isWin;
+                this.$router.push({ path });
             }
         }
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
     .play-container {
         width: 1270px;
         display: flex;
@@ -58,7 +71,10 @@
         margin: auto;
     }
     .timer-container {
-        width: 250px;
-        margin-left: 200px;
+        width: 400px;
+        margin-left: 100px;
+        .timer__values {
+            font-size: 150px;
+        }
     }
 </style>

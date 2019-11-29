@@ -21,7 +21,9 @@ export default new Vuex.Store({
           x: null,
           y: null
       },
-      playersCount: 0
+      playersCount: 0,
+      isWin: false,
+      droneStarted: false
   },
   mutations: {
       SOCKET_updatePlayers(state, value) {
@@ -29,12 +31,15 @@ export default new Vuex.Store({
       },
 
       SOCKET_updateDronePos(state, positions) {
-          const newPosition = positions.slice(state.resolve.length - 1)
+          let newPosition = positions;
+          if(state.resolve.length) {
+              newPosition = positions.slice(state.resolve.length - 1)
+          }
           console.log("postions", positions);
           newPosition.forEach((pos, i) => {
               setTimeout(() => {
                   state.resolve.push(pos)
-              }, i * 1500)
+              }, (i + 1) * 3000)
           });
       },
 

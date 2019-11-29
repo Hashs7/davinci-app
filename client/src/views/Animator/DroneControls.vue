@@ -38,6 +38,11 @@
                                 <span class="c-link__label">Revenir au départ</span>
                             </div>
                         </div>
+                        <div class="controls__btn c-link" @click="showGame = true">
+                            <div class="content">
+                                <span class="c-link__label">Fin de partie</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="super-controls" v-else>
@@ -66,6 +71,26 @@
                     </div>
                 </div>
             </modal>
+            <modal v-if="showGame" @close="showGame = false">
+                <div slot="header">
+                    <h2 class="c-slide__title">Fin de partie</h2>
+                    <h3 class="c-slide__subtitle">Fin de partie</h3>
+                </div>
+
+                <div slot="body">
+                    <p>Fin de partie</p>
+                </div>
+                <div slot="footer">
+                    <div class="c-link-container">
+                        <div @click="endGame(true)" class="c-link--flat c-link--half">
+                            <span>Gagné</span>
+                        </div>
+                        <div @click="endGame(false)" class="c-link--flat c-link--half">
+                            <span>Perdu</span>
+                        </div>
+                    </div>
+                </div>
+            </modal>
         </div>
     </main>
 </template>
@@ -75,6 +100,7 @@
     import Stop from '@/assets/icons/ic_stop.svg';
     import Modal from "@/components/Modal";
     import SuperControls from "@/components/animator/SuperControls";
+    import {routePath} from "../../router";
 
     export default {
         name: "DroneControls",
@@ -86,6 +112,7 @@
         },
         data: () => ({
             showModal: false,
+            showGame: false,
             superControls: false,
         }),
         methods: {
@@ -98,6 +125,10 @@
             },
             goStartSequence() {
                 this.$socket.emit('drone_backhome')
+            },
+            endGame(isWin) {
+                this.showGame = false;
+                this.$socket.emit("screenView", {path: routePath.SCREEN_FINAL, isWin})
             },
         },
         mounted() {

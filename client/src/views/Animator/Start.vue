@@ -10,7 +10,7 @@
                         <NavArrow />
                     </div>
                 </div>
-                <carousel :per-page="1" @page-change="pageChange" :navigateTo="currentSlide" :minSwipeDistance="400">
+                <carousel :per-page="1" @page-change="pageChange" :navigateTo="currentSlide" :minSwipeDistance="350">
                     <slide>
                         <PlayersCount />
                     </slide>
@@ -64,6 +64,7 @@
             pageChange(index) {
                 this.currentSlide = index;
                 if(index === 0) {
+                    this.$socket.emit("screenView", {path: routePath.SCREEN_WAITING});
                     this.title = "Joueurs"
                 } else if (index === 1) {
                     this.title = "Scénario"
@@ -82,6 +83,9 @@
                     return
                 }
             }
+        },
+        mounted() {
+            this.$socket.emit("screenView", {path: routePath.SCREEN_WAITING})
         }
     }
 </script>

@@ -3,7 +3,7 @@
         <div class="l-page">
             <div class="c-slide">
                 <div class="c-slide__content">
-                    <lottie :options="defaultOptions" :height="600" :width="700" v-on:animCreated="handleAnimation"/>
+                    <lottie :options="defaultOptions" :height="600" :width="700" />
                     <p class="c-slide__txt">{{ screen.third }}</p>
                 </div>
             </div>

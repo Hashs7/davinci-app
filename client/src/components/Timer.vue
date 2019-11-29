@@ -5,21 +5,25 @@
             <span class="number">:</span>
             <span class="number">{{ seconds }}</span>
         </div>
-<!--        <div class="status-tag" :class="statusType">{{ statusText }}</div>-->
+        <!--        <div class="status-tag" :class="statusType">{{ statusText }}</div>-->
 
         <div v-if="controls" class="timer__controls">
-            <div v-if="!isStarted" @click="timerStart" class="c-link--flat">
+            <div v-if="!isStarted" @click="timerStart" class="c-link--flat start">
                 <span>Démarrer</span>
+                <img src="@/assets/img/buttons/Bouton_05_Partie_Terminée.png" alt="">
             </div>
             <div v-else class="c-link-container">
-                <div v-if="isPaused" @click="timerPlay" class="c-link--flat c-link--half" >
+                <div v-if="isPaused" @click="timerPlay" class="c-link--flat c-link--half">
                     <span>Reprendre</span>
+                    <img src="@/assets/img/buttons/Bouton_03_Arreter.png" alt="">
                 </div>
                 <div v-else @click="timerPause" class="c-link--flat c-link--half">
                     <span>Pause</span>
+                    <img src="@/assets/img/buttons/Bouton_03_Arreter.png" alt="">
                 </div>
-                <div @click="timerReset" class="c-link--flat c-link--outline c-link--half">
+                <div @click="timerReset" class="c-link--flat c-link--half">
                     <span>Réinitialiser</span>
+                    <img src="@/assets/img/buttons/Bouton_04_Pause.png" alt="">
                 </div>
             </div>
         </div>
@@ -50,7 +54,7 @@
             start: "",
             end: "",
             interval: null,
-            minutes: "5",
+            minutes: "10",
             seconds: "00",
             statusType: "",
             statusText: "",
@@ -58,7 +62,7 @@
             isPaused: false,
             time: 0,
             elapsed: '0.0',
-    }),
+        }),
         methods: {
             timerCount(start, end) {
                 const now      = new Date().getTime();
@@ -93,7 +97,7 @@
                 if (!this.controls) {
                     console.log("startTime", this.startTime);
                     this.start = this.startTime;
-                    this.end = this.endTime;
+                    this.end   = this.endTime;
                 }
                 this.timerPlay();
             },
@@ -101,8 +105,8 @@
                 // setTimeout(this.instance, 100);
 
                 this.isPaused = false;
-                this.start = new Date().getTime();
-                this.end   = new Date(this.start + (this.minutes * 60000) + ((this.seconds + 1) * 1000)).getTime();
+                this.start    = new Date().getTime();
+                this.end      = new Date(this.start + (this.minutes * 60000) + ((this.seconds + 1) * 1000)).getTime();
 
                 if (this.controls) {
                     this.$socket.emit("timerStart", {startTime: this.start, endTime: this.end});
@@ -118,7 +122,7 @@
                 this.time += 100;
 
                 this.elapsed = Math.floor(this.time / 100) / 10;
-                if(Math.round(this.elapsed) == this.elapsed) {
+                if (Math.round(this.elapsed) == this.elapsed) {
                     this.elapsed += '.0';
                 }
 
@@ -150,9 +154,18 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .timer__values {
         font-family: 'Ogg', sans-serif;
         font-size: 200px;
+    }
+
+    .c-link--half {
+        height: 130px;
+
+        span {
+            line-height: 140px;
+            color: black !important;
+        }
     }
 </style>

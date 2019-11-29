@@ -4,6 +4,7 @@
             <div class="modal-wrapper">
                 <main class="l-view l-view--animator">
                     <div class="c-slide">
+                        <span class="close-btn" @click="$emit('close')">Fermer</span>
                         <header class="c-slide__header">
                             <div class="u-relative">
                                 <slot name="header"></slot>
@@ -75,7 +76,11 @@
         margin-top: 0;
         color: #42b983;
     }
-
+    .close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
     .modal-body {
         margin: 20px 0;
         font-size: 46px;

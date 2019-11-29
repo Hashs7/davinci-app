@@ -10,8 +10,9 @@
             <h2 class="c-slide__index">{{ index }}</h2>
             <p class="c-slide__desc">{{ txt }}</p>
 
-            <router-link v-if="index === 5" to="/animator/playing" class="c-link--primary c-link--flat">
+            <router-link v-if="index === 5" to="/animator/playing" class="c-link--flat">
                 <span>Démarrer le jeu</span>
+                <img src="@/assets/img/buttons/Bouton_05_Partie_Terminée.png" alt="">
             </router-link>
         </div>
     </div>

@@ -39,9 +39,8 @@
                     focusable: false
                 }
             }
-        )
-            ;
-            this.$emit('animCreated', this.anim)
+        );
+            //this.$emit('animCreated', this.anim)
         }
     }
 </script>

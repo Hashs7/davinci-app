@@ -61,7 +61,7 @@ const storeDroneMove = (position, move, isFirst) => {
                 droneMoves.push(move);
                 const io = require('./socket').getIO();
                 console.log("updateDronePos");
-                io.emit('updateDronePos', dronePositions);
+                //io.emit('updateDronePos', dronePositions);
 
 
                 const json = JSON.stringify({
@@ -87,7 +87,7 @@ const storeDroneMove = (position, move, isFirst) => {
 exports.testCombination = async (combination) => {
     console.log("combination", combination);
     let lastPosition = await getLastPos();
-    singleMove(0, combination, lastPosition)
+    singleMove(0, combination, lastPosition);
 };
 
 const singleMove = async (index, combination, lastPos) => {
@@ -108,7 +108,7 @@ const singleMove = async (index, combination, lastPos) => {
 
 const emitCombination = async () => {
     const io        = require('./socket').getIO();
-    const {droneMoves} = await readFileMatrix();
+    const {droneMoves, dronePositions} = await readFileMatrix();
     const isImpossible = droneMoves.filter(move => move === "impossible");
     if (isImpossible.length) {
         // c'est impossible
@@ -118,6 +118,8 @@ const emitCombination = async () => {
         const { name } = constants.SYMBOLS.find(el => arraysEqual(el.combination, droneMoves));
         io.emit('drone_color-combination', [name])  ;
     }
+    io.emit('updateDronePos', dronePositions);
+
 };
 
 const testNewMove = (lastPos, move) => {
@@ -153,7 +155,7 @@ const testNewMove = (lastPos, move) => {
                 move,
             });
         } catch (e) {
-            resolve({move: "impossible"});
+            resolve({ move: "impossible" });
             console.error(e);
         }
     }))

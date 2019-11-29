@@ -9,9 +9,11 @@
             </header>
             <div class="c-slide__content">
                 <Timer controls />
-                <router-link to="/animator/controls" class="c-link--primary c-link--flat">
+                <router-link to="/animator/controls" class="c-link--flat">
                     <span>Partie terminée</span>
+                    <img src="@/assets/img/buttons/Bouton_05_Partie_Terminée.png" alt="">
                 </router-link>
+
             </div>
         </div>
     </main>
