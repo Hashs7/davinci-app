@@ -1,5 +1,7 @@
 # Davinci App 
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c6105158-7d8a-4e2d-a9ae-27198db96ec5/deploy-status)](https://app.netlify.com/sites/davinciapp/deploys)
+
 ## Project setup
 Rename example.env and fill values
 ```
