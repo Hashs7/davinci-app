@@ -46,21 +46,22 @@ export default {
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;
+    transition: background-color .3s ease-in-out;
 
     &.start {
         //background-color: #5fbe84;
-        &.path {
-            color: black
-        }
+/*        &.path {
+            color: black;
+        }*/
     }
     &.end {
         //background-color: #b33434;
-        &.path {
-            color: black
-        }
+       /* &.path {
+            color: black;
+        }*/
     }
     &.path {
-        background-color: white;
+        background-color: $brown;
     }
     &.disable {
         background: repeating-linear-gradient(

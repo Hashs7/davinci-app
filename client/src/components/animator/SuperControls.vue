@@ -37,23 +37,13 @@
                     <span class="c-link__label">Rotation vers droite</span>
                 </div>
             </div>
-            <div class="controls__btn c-link--small" @click="calibrate">
+            <div class="controls__btn c-link--small" @click="landing">
                 <div class="content">
-                    <span class="c-link__label">Calibrer orientation</span>
-                </div>
-            </div>
-            <div class="controls__btn c-link--small" @click="detect">
-                <div class="content">
-                    <span class="c-link__label">Détecter le symbole</span>
+                    <span class="c-link__label">atterir</span>
                 </div>
             </div>
         </div>
 
-        <div class="controls__btn c-link--small" @click="sendSymbol('White')">
-            <div class="content">
-                <span class="c-link__label">Envoyer White</span>
-            </div>
-        </div>
         <div class="controls__btn c-link--small" @click="sendSymbol('Blue')">
             <div class="content">
                 <span class="c-link__label">Envoyer Blue</span>
@@ -67,6 +57,11 @@
         <div class="controls__btn c-link--small" @click="sendSymbol('Red')">
             <div class="content">
                 <span class="c-link__label">Envoyer Red</span>
+            </div>
+        </div>
+        <div class="controls__btn c-link--small" @click="sendSymbol('White')">
+            <div class="content">
+                <span class="c-link__label">Envoyer White</span>
             </div>
         </div>
         <div class="controls__btn c-link--small" @click="sendSymbol('Green')">
@@ -105,6 +100,9 @@
             },
             calibrate() {
                 this.$socket.emit('drone_calibrate')
+            },
+            landing() {
+                this.$socket.emit('drone_backhome')
             },
             rotate(dir) {
                 this.$socket.emit('drone_rotate', dir)

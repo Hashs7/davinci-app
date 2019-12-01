@@ -5,7 +5,7 @@
                 <div class="u-relative">
                     <div v-if="isWin">
                         <h2 class="c-slide__title">Gagné</h2>
-                        <h3 class="c-slide__subtitle">Gagné</h3>
+                        <h3 class="c-slide__subtitle">Gagne</h3>
                     </div>
                     <div v-else>
                         <h2 class="c-slide__title">Perdu</h2>

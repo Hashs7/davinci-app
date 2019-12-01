@@ -80,6 +80,8 @@
         position: absolute;
         top: 16px;
         right: 16px;
+        padding: 16px;
+        z-index: 1000;
     }
     .modal-body {
         margin: 20px 0;

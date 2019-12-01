@@ -51,7 +51,7 @@
         margin: auto;
     }
     .c-slide__desc {
-        text-align: left;
+        text-align: center;
         font-size: 36px;
         color: #F5F1ED;
     }

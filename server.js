@@ -94,6 +94,10 @@ io.on('connection', socket => {
         console.log("drone_moveTo", data);
         io.emit('drone_moveTo', data)
     });
+    socket.on('drone_moveTo-long', (data) => {
+        console.log("drone_moveTo-long", data);
+        io.emit('drone_moveTo-long', data)
+    });
     socket.on('drone_calibrate', () => {
         io.emit('drone_calibrate')
     });

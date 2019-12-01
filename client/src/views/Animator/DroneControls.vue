@@ -9,8 +9,8 @@
             </header>
             <div class="c-slide__content">
                 <div class="switch-controls" @click="superControls = !superControls">
-                    <span v-if="!superControls">Super controls</span>
-                    <span v-else>Simple controls</span>
+                    <span v-if="!superControls">Contrôle avancé</span>
+                    <span v-else>Contrôle simple</span>
                 </div>
                 <div>
                     <div v-if="!superControls" class="controls-container">
@@ -30,12 +30,12 @@
                                 <span class="c-link__label">Arrêt</span>
                             </div>
                         </div>
-                        <div class="controls__btn c-link" @click="goStartSequence">
+                        <div class="controls__btn c-link" @click="landing">
                             <div class="content">
                                 <div class="c-link__icon--flip-180">
                                     <Arrow />
                                 </div>
-                                <span class="c-link__label">Revenir au départ</span>
+                                <span class="c-link__label">Atterir</span>
                             </div>
                         </div>
                         <div class="controls__btn c-link" @click="showGame = true">
@@ -64,9 +64,11 @@
                     <div class="c-link-container">
                         <div @click="startSequence" class="c-link--flat c-link--half">
                             <span>Oui</span>
+                            <img src="@/assets/img/buttons/Bouton_03_Arreter.png" alt="">
                         </div>
                         <div @click="showModal = false" class="c-link--flat c-link--half">
                             <span>Non</span>
+                            <img src="@/assets/img/buttons/Bouton_04_Pause.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -84,9 +86,11 @@
                     <div class="c-link-container">
                         <div @click="endGame(true)" class="c-link--flat c-link--half">
                             <span>Gagné</span>
+                            <img src="@/assets/img/buttons/Bouton_03_Arreter.png" alt="">
                         </div>
                         <div @click="endGame(false)" class="c-link--flat c-link--half">
                             <span>Perdu</span>
+                            <img src="@/assets/img/buttons/Bouton_04_Pause.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -123,7 +127,7 @@
             stopSequence() {
                 this.$socket.emit('drone_stop')
             },
-            goStartSequence() {
+            landing() {
                 this.$socket.emit('drone_backhome')
             },
             endGame(isWin) {
@@ -145,6 +149,7 @@
     
     .switch-controls {
         position: absolute;
+        opacity: 0;
         top: 8px;
         right: 8px;
         padding: 16px 32px;
@@ -168,5 +173,13 @@
     }
     .c-link__icon--flip-180 path {
         fill: #5B5B59;
+    }
+    .c-link--half {
+        height: 130px;
+
+        span {
+            line-height: 140px;
+            color: black !important;
+        }
     }
 </style>

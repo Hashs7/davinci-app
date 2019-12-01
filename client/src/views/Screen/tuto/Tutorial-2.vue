@@ -37,5 +37,7 @@
 </script>
 
 <style scoped>
-
+.c-slide__txt {
+    max-width: 620px;
+}
 </style>
